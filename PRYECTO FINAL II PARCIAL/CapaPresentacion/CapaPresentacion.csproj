@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,56 +36,62 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Azure.Core, Version=1.38.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Azure.Core.1.38.0\lib\net472\Azure.Core.dll</HintPath>
+    <Reference Include="Azure.Core, Version=1.40.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.40.0\lib\net472\Azure.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Azure.Identity, Version=1.11.3.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Azure.Identity.1.11.3\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    <Reference Include="Azure.Identity, Version=1.11.4.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.11.4\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
-      <HintPath>..\packages\BouncyCastle.Cryptography.2.2.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.25.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.25.1\lib\net45\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.27.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.27.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="K4os.Compression.LZ4, Version=1.3.5.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.1.3.5\lib\net462\K4os.Compression.LZ4.dll</HintPath>
+    <Reference Include="K4os.Compression.LZ4, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.3.8\lib\net462\K4os.Compression.LZ4.dll</HintPath>
     </Reference>
-    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.3.5.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.3.5\lib\net462\K4os.Compression.LZ4.Streams.dll</HintPath>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.3.8\lib\net462\K4os.Compression.LZ4.Streams.dll</HintPath>
     </Reference>
     <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.SqlClient.5.2.1\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Identity.Client, Version=4.60.3.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Identity.Client.4.60.3\lib\net462\Microsoft.Identity.Client.dll</HintPath>
+    <Reference Include="Microsoft.Identity.Client, Version=4.61.3.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.61.3\lib\net462\Microsoft.Identity.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.60.3.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.4.60.3\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.61.3.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.4.61.3\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.6.35.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=7.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.7.6.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.35.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=7.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.7.6.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.35.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=7.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.7.6.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=7.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.7.6.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=7.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.7.6.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.35.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=7.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.7.6.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=8.4.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.4.0\lib\net462\MySql.Data.dll</HintPath>
@@ -97,30 +104,31 @@
       <HintPath>..\packages\System.ClientModel.1.0.0\lib\netstandard2.0\System.ClientModel.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.ConfigurationManager, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Configuration.ConfigurationManager.6.0.1\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.2\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.35.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=7.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.7.6.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
+    <Reference Include="System.IO.Pipelines, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.8.0.0\lib\net462\System.IO.Pipelines.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
+    <Reference Include="System.Memory.Data, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.8.0.0\lib\net462\System.Memory.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Numerics" />
@@ -136,24 +144,24 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Security" />
-    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.1\lib\net461\System.Security.AccessControl.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.4.7.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.8.0.0\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Permissions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Permissions.6.0.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    <Reference Include="System.Security.Permissions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.8.0.0\lib\net462\System.Security.Permissions.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=8.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.3\lib\net462\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -172,8 +180,8 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="ZstdSharp, Version=0.7.1.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZstdSharp.Port.0.7.1\lib\net461\ZstdSharp.dll</HintPath>
+    <Reference Include="ZstdSharp, Version=0.8.1.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZstdSharp.Port.0.8.1\lib\net462\ZstdSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -183,11 +191,22 @@
     <Compile Include="Admi_AgregarDatos_Usuario.Designer.cs">
       <DependentUpon>Admi_AgregarDatos_Usuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CarpinteriaDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarpinteriaDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBuscarPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBuscarPedido.Designer.cs">
+      <DependentUpon>FrmBuscarPedido.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmBuscarUsuario.cs">
       <SubType>Form</SubType>
@@ -195,23 +214,35 @@
     <Compile Include="FrmBuscarUsuario.Designer.cs">
       <DependentUpon>FrmBuscarUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmEliminarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEliminarProducto.Designer.cs">
+      <DependentUpon>FrmEliminarProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmEditarPorCedula.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmEditarPorCedula.Designer.cs">
       <DependentUpon>FrmEditarPorCedula.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmEditarPorNombre.cs">
+    <Compile Include="FrmEditarPorCorreo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmEditarPorNombre.Designer.cs">
-      <DependentUpon>FrmEditarPorNombre.cs</DependentUpon>
+    <Compile Include="FrmEditarPorCorreo.Designer.cs">
+      <DependentUpon>FrmEditarPorCorreo.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmEliminarUsuario.cs">
+    <Compile Include="FrmEliminarCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmEliminarUsuario.Designer.cs">
-      <DependentUpon>FrmEliminarUsuario.cs</DependentUpon>
+    <Compile Include="FrmEliminarCliente.Designer.cs">
+      <DependentUpon>FrmEliminarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEditProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditProducto.Designer.cs">
+      <DependentUpon>FrmEditProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMenuAdmi.cs">
       <SubType>Form</SubType>
@@ -225,17 +256,47 @@
     <Compile Include="FrmMenuUsuario.Designer.cs">
       <DependentUpon>FrmMenuUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmRegistrarPedidoUsuario.cs">
+    <Compile Include="FrmRegistrarPedidoAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmRegistrarPedidoUsuario.Designer.cs">
-      <DependentUpon>FrmRegistrarPedidoUsuario.cs</DependentUpon>
+    <Compile Include="FrmRegistrarPedidoAdmin.Designer.cs">
+      <DependentUpon>FrmRegistrarPedidoAdmin.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmRegistroLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmRegistroLogin.Designer.cs">
       <DependentUpon>FrmRegistroLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRegistroPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRegistroPedido.Designer.cs">
+      <DependentUpon>FrmRegistroPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReporteClientePedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReporteClientePedido.Designer.cs">
+      <DependentUpon>FrmReporteClientePedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReporteClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReporteClientes.Designer.cs">
+      <DependentUpon>FrmReporteClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReportePedidoEstado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReportePedidoEstado.Designer.cs">
+      <DependentUpon>FrmReportePedidoEstado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReporteTrabajos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReporteTrabajos.Designer.cs">
+      <DependentUpon>FrmReporteTrabajos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -245,17 +306,26 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmBuscarPedido.resx">
+      <DependentUpon>FrmBuscarPedido.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBuscarUsuario.resx">
       <DependentUpon>FrmBuscarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEliminarProducto.resx">
+      <DependentUpon>FrmEliminarProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEditarPorCedula.resx">
       <DependentUpon>FrmEditarPorCedula.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmEditarPorNombre.resx">
-      <DependentUpon>FrmEditarPorNombre.cs</DependentUpon>
+    <EmbeddedResource Include="FrmEditarPorCorreo.resx">
+      <DependentUpon>FrmEditarPorCorreo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmEliminarUsuario.resx">
-      <DependentUpon>FrmEliminarUsuario.cs</DependentUpon>
+    <EmbeddedResource Include="FrmEliminarCliente.resx">
+      <DependentUpon>FrmEliminarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditProducto.resx">
+      <DependentUpon>FrmEditProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMenuAdmi.resx">
       <DependentUpon>FrmMenuAdmi.cs</DependentUpon>
@@ -263,11 +333,26 @@
     <EmbeddedResource Include="FrmMenuUsuario.resx">
       <DependentUpon>FrmMenuUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistrarPedidoUsuario.resx">
-      <DependentUpon>FrmRegistrarPedidoUsuario.cs</DependentUpon>
+    <EmbeddedResource Include="FrmRegistrarPedidoAdmin.resx">
+      <DependentUpon>FrmRegistrarPedidoAdmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRegistroLogin.resx">
       <DependentUpon>FrmRegistroLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRegistroPedido.resx">
+      <DependentUpon>FrmRegistroPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReporteClientePedido.resx">
+      <DependentUpon>FrmReporteClientePedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReporteClientes.resx">
+      <DependentUpon>FrmReporteClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReportePedidoEstado.resx">
+      <DependentUpon>FrmReportePedidoEstado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReporteTrabajos.resx">
+      <DependentUpon>FrmReporteTrabajos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -279,6 +364,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ReporteClientes.rdlc" />
+    <EmbeddedResource Include="ReporteClienteTrabajo.rdlc" />
+    <EmbeddedResource Include="ReportePedidoEstado.rdlc" />
+    <EmbeddedResource Include="ReporteTrabajo.rdlc" />
+    <None Include="CarpinteriaDataSet.xsc">
+      <DependentUpon>CarpinteriaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CarpinteriaDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CarpinteriaDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CarpinteriaDataSet.xss">
+      <DependentUpon>CarpinteriaDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -309,6 +409,37 @@
   <ItemGroup>
     <None Include="Resources\search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\7.png" />
+    <None Include="Resources\icons8-7-40.png" />
+    <None Include="Resources\otros.jpg" />
+    <None Include="Resources\sillas.jpg" />
+    <None Include="Resources\Templado.jpeg" />
+    <None Include="Resources\reconocido.jpg" />
+    <None Include="Resources\Laminado.jpeg" />
+    <None Include="Resources\Fecha.png" />
+    <None Include="Resources\Correo.png" />
+    <None Include="Resources\Ciudad.png" />
+    <None Include="Resources\Nombre.png" />
+    <None Include="Resources\Logo1.png" />
+    <None Include="Resources\Logo.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\2.png" />
+    <None Include="Resources\3.png" />
+    <None Include="Resources\4.png" />
+    <None Include="Resources\5.png" />
+    <None Include="Resources\6.png" />
+    <Content Include="Resources\8.png" />
+    <None Include="Resources\81.png" />
+    <Content Include="Resources\9.png" />
+    <None Include="Resources\91.png" />
+    <Content Include="Resources\allmueble.jpg" />
+    <None Include="Resources\Menu.png" />
+    <None Include="Resources\Cedula.png" />
+    <None Include="Resources\Contra.png" />
+    <None Include="Resources\User.png" />
+    <None Include="Resources\Inicio-Gif.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -316,5 +447,6 @@
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
   </Target>
 </Project>

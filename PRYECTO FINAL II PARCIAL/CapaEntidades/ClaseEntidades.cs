@@ -14,15 +14,20 @@ namespace CapaEntidades
         public DateTime FechaFin { get; set; }
         public int Cantidad { get; set; }
         public string Estado { get; set; }
-        public string TipoTrabajo { get; set; }
         public decimal Costo { get; set; }
-        public string FotoRuta { get; set; }
-        public string ClienteCedula { get; set; }
-
-        public Cliente Cliente { get; set; }
+        public string Descripcion { get; set; }
+        public byte[] Foto { get; set; }
 
     }
-
+    public class PedidoDetalle
+    {
+        public int Cantidad { get; set; }
+        public decimal Total { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Estado { get; set; }
+        public string Descripcion { get; set; }
+        public byte[] Foto { get; set; }
+    }
     public class Cliente
     {
         public string Cedula { get; set; }
@@ -43,5 +48,12 @@ namespace CapaEntidades
         public string Cedula { get; set; } // Clave foránea a Cliente
         public Cliente Cliente { get; set; } // Propiedad de navegación
     }
-
+    public class Pedido
+    {
+        public int Cantidad { get; set; }
+        public decimal Total { get; set; }
+        public DateTime Fecha { get; set; }
+        public int IdTrabajo { get; set; }
+        public string CedulaCliente { get; set; }
+    }
 }

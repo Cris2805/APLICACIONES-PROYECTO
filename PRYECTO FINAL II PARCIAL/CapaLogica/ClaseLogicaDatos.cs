@@ -16,7 +16,7 @@ namespace CapaLogica
 
         private CdOperaciones operaciones = new CdOperaciones();
 
-        public bool VerificarLogin(string username, string password)
+       public Usuario Login(string username, string password)
         {
             return operaciones.Login(username, password);
         }
@@ -26,20 +26,41 @@ namespace CapaLogica
             operaciones.InsertarCliente(cliente);
         }
 
+        public bool ExistenUsuariosRegistrados()
+        {
+            return operaciones.ExistenUsuariosRegistrados();
+        }
         public void RegistrarUsuario(Usuario usuario)
         {
             operaciones.InsertarUsuario(usuario);
         }
 
-        public void ActualizarDatosCliente(string cedula, string nombre, string apellido)
+        public void ActualizarDatosCliente(string cedula, Cliente clienteActualizado)
         {
-            operaciones.ActualizarCliente(cedula, nombre, apellido);
+            operaciones.ActualizarCliente(cedula, clienteActualizado);
         }
+
+        public bool CorreoExiste(string correo)
+        {
+            return operaciones.CorreoExiste(correo);
+        }
+
+        public Cliente BuscarClientePorCorreo(string correo)
+        {
+            return operaciones.BuscarClientePorCorreo(correo);
+        }
+
 
         public void EliminarCliente(string cedula)
         {
             operaciones.EliminarCliente(cedula);
         }
+
+        public Usuario VerificarCredenciales(string username, string password)
+        {
+            return operaciones.Login(username, password);  // Asegúrate de que este método devuelva un objeto Usuario si las credenciales son correctas
+        }
+
 
         public Cliente BuscarCliente(string cedula)
         {
@@ -51,6 +72,12 @@ namespace CapaLogica
             return operaciones.VerificarUsuario(username);
         }
 
+        public void ActualizarDatosClientePorCorreo(string correoOriginal, Cliente clienteActualizado)
+        {
+            operaciones.ActualizarClientePorCorreo(correoOriginal, clienteActualizado);
+        }
+
+
         public bool CedulaExiste(string cedula)
         {
             return operaciones.CedulaExiste(cedula);
@@ -59,6 +86,62 @@ namespace CapaLogica
         {
             return operaciones.ValidarCedula(cedula);
         }
+        public void EliminarUsuariosPorCedula(string cedula)
+        {
+            operaciones.EliminarUsuarioPorCedula(cedula);
+        }
+
+        public Cliente BuscarClientePorNombre(string nombre)
+        {
+            return operaciones.BuscarClientePorNombre(nombre);
+        }
+
+        public void InsertarTrabajoCarpinteria(TrabajoCarpinteria trabajo)
+        {
+            operaciones.InsertarTrabajoCarpinteria(trabajo);
+        }
+        public TrabajoCarpinteria BuscarTrabajoPorId(int id)
+        {
+            return operaciones.BuscarTrabajoPorId(id);
+        }
+
+        public void ActualizarTrabajo(int idTrabajo, DateTime fechaInicio, DateTime fechaFin, int cantidad, string estado)
+        {
+            try
+            {
+                operaciones.ActualizarTrabajo(idTrabajo, fechaInicio, fechaFin, cantidad, estado);
+            }
+            catch (Exception ex)
+            {
+                // Manejar o re-lanzar la excepción según sea necesario
+                throw new Exception("No se pudo actualizar el trabajo.", ex);
+            }
+        }
+        public void EliminarTrabajo(int id)
+        {
+            operaciones.EliminarTrabajoCarpinteria(id);
+        }
+        public void RegistrarPedido(Pedido pedido)
+        {
+            operaciones.RegistrarPedido(pedido);
+        }
+        public List<TrabajoCarpinteria> ObtenerTrabajosCarpinteria()
+        {
+            return operaciones.ObtenerTrabajosCarpinteria();
+        }
+        public void ActualizarCantidadTrabajo(int idTrabajo, int nuevaCantidad)
+        {
+            operaciones.ActualizarCantidadTrabajo(idTrabajo, nuevaCantidad);
+        }
+        public PedidoDetalle BuscarPedidoPorId(int id)
+        {
+            return operaciones.BuscarPedidoPorId(id);
+        }
+        public bool HayPedidosParaProducto(int idProducto)
+        {
+            return operaciones.HayPedidosParaProducto(idProducto);
+        }
+
     }
 }
 

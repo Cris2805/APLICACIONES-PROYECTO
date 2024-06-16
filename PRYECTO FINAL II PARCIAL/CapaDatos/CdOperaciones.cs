@@ -14,21 +14,45 @@ namespace CapaDatos
         private CdConexion conexion = new CdConexion();
 
         // Método para loguearse como administrador o cliente
-        public bool Login(string username, string password)
+        public Usuario Login(string username, string password)
         {
             conexion.abrir();
-            SqlCommand command = new SqlCommand("SELECT COUNT(1) FROM Usuarios WHERE Username = @Username AND Password = @Password", conexion.conexion);
+            // Modificamos la consulta para obtener los datos del usuario en lugar de contarlos
+            SqlCommand command = new SqlCommand("SELECT * FROM Usuarios WHERE usuario = @Username AND contrasena = @Password", conexion.conexion);
             command.Parameters.AddWithValue("@Username", username);
             command.Parameters.AddWithValue("@Password", password);
-            int result = (int)command.ExecuteScalar();
+            SqlDataReader reader = command.ExecuteReader();
+
+            Usuario usuario = null;
+            if (reader.Read()) // Si hay datos, construimos el objeto usuario
+            {
+                usuario = new Usuario
+                {
+                    Username = reader["usuario"].ToString(),
+                    Password = reader["contrasena"].ToString(), // No es ideal devolver la contraseña, considera omitirla
+                    Role = reader["rol"].ToString(),
+                    Cedula = reader["cedula"].ToString()
+                };
+            }
+            reader.Close();
             conexion.cerrar();
-            return result > 0;
+            return usuario;
+        }
+
+
+        public bool ExistenUsuariosRegistrados()
+        {
+            conexion.abrir();
+            SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Usuarios", conexion.conexion);
+            int count = (int)command.ExecuteScalar();
+            conexion.cerrar();
+            return count > 0;
         }
 
         public bool VerificarUsuario(string username)
         {
             conexion.abrir();
-            SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Usuarios WHERE Username = @Username", conexion.conexion);
+            SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Usuarios WHERE usuario = @Username", conexion.conexion);
             command.Parameters.AddWithValue("@Username", username);
             int count = (int)command.ExecuteScalar();
             conexion.cerrar();
@@ -97,24 +121,76 @@ namespace CapaDatos
             conexion.cerrar();
         }
 
-        // Método para actualizar datos de cliente por cédula o nombre
-        public void ActualizarCliente(string cedula, string nombre, string nuevoApellido)
+        // Método para actualizar datos de cliente por cédula (la cédula no se actualiza)
+        public void ActualizarCliente(string cedula, Cliente clienteActualizado)
         {
             conexion.abrir();
-            string query = "UPDATE Clientes SET Apellido = @NuevoApellido WHERE Cedula = @Cedula OR Nombre = @Nombre";
+            string query = @"
+        UPDATE Clientes SET 
+            Nombre = @Nombre,
+            Apellido = @Apellido,
+            Ciudad = @Ciudad,
+            Edad = @Edad,
+            fecha_nacimiento = @FechaDeNacimiento,
+            correo_electronico = @CorreoElectronico
+        WHERE Cedula = @Cedula";
+
             SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Nombre", clienteActualizado.Nombre);
+            command.Parameters.AddWithValue("@Apellido", clienteActualizado.Apellido);
+            command.Parameters.AddWithValue("@Ciudad", clienteActualizado.Ciudad);
+            command.Parameters.AddWithValue("@Edad", clienteActualizado.Edad);
+            command.Parameters.AddWithValue("@FechaDeNacimiento", clienteActualizado.FechaDeNacimiento);
+            command.Parameters.AddWithValue("@CorreoElectronico", clienteActualizado.CorreoElectronico);
             command.Parameters.AddWithValue("@Cedula", cedula);
-            command.Parameters.AddWithValue("@Nombre", nombre);
-            command.Parameters.AddWithValue("@NuevoApellido", nuevoApellido);
+
             command.ExecuteNonQuery();
             conexion.cerrar();
         }
+
+        public bool CorreoExiste(string correo)
+        {
+            conexion.abrir();
+            SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Clientes WHERE correo_electronico = @Correo", conexion.conexion);
+            command.Parameters.AddWithValue("@Correo", correo);
+            int resultado = (int)command.ExecuteScalar();
+            conexion.cerrar();
+            return resultado > 0;
+        }
+
+        public Cliente BuscarClientePorCorreo(string correo)
+        {
+            conexion.abrir();
+            string query = "SELECT * FROM Clientes WHERE correo_electronico = @Correo";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Correo", correo);
+            SqlDataReader reader = command.ExecuteReader();
+            Cliente cliente = null;
+            if (reader.Read())
+            {
+                cliente = new Cliente
+                {
+                    Nombre = reader["nombre"].ToString(),
+                    Apellido = reader["apellido"].ToString(),
+                    Ciudad = reader["ciudad"].ToString(),
+                    Edad = Convert.ToInt32(reader["edad"]),
+                    FechaDeNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"]),
+                    CorreoElectronico = reader["correo_electronico"].ToString()
+                };
+            }
+            reader.Close();
+            conexion.cerrar();
+            return cliente;
+        }
+
+
+
 
         // Método para eliminar cliente por cédula
         public void EliminarCliente(string cedula)
         {
             conexion.abrir();
-            string query = "DELETE FROM Clientes WHERE Cedula = @Cedula";
+            string query = "DELETE FROM Clientes WHERE cedula = @Cedula";
             SqlCommand command = new SqlCommand(query, conexion.conexion);
             command.Parameters.AddWithValue("@Cedula", cedula);
             command.ExecuteNonQuery();
@@ -147,6 +223,252 @@ namespace CapaDatos
             conexion.cerrar();
             return cliente;
         }
+
+        public void ActualizarClientePorCorreo(string correoOriginal, Cliente clienteActualizado)
+        {
+            conexion.abrir();
+            string query = @"
+                UPDATE Clientes SET 
+                    Nombre = @Nombre,
+                    Apellido = @Apellido,
+                    Ciudad = @Ciudad,
+                    Edad = @Edad,
+                    fecha_nacimiento = @FechaDeNacimiento,
+                    correo_electronico = @NuevoCorreo
+                WHERE correo_electronico = @CorreoOriginal";
+
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Nombre", clienteActualizado.Nombre);
+            command.Parameters.AddWithValue("@Apellido", clienteActualizado.Apellido);
+            command.Parameters.AddWithValue("@Ciudad", clienteActualizado.Ciudad);
+            command.Parameters.AddWithValue("@Edad", clienteActualizado.Edad);
+            command.Parameters.AddWithValue("@FechaDeNacimiento", clienteActualizado.FechaDeNacimiento);
+            command.Parameters.AddWithValue("@NuevoCorreo", clienteActualizado.CorreoElectronico);
+            command.Parameters.AddWithValue("@CorreoOriginal", correoOriginal);
+
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+
+        public Cliente BuscarClientePorNombre(string nombre)
+        {
+            conexion.abrir();
+            string query = "SELECT * FROM Clientes WHERE Nombre = @Nombre";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Nombre", nombre);
+            SqlDataReader reader = command.ExecuteReader();
+            Cliente cliente = null;
+            if (reader.Read())
+            {
+                cliente = new Cliente
+                {
+                    Cedula = reader["Cedula"].ToString(),
+                    Nombre = reader["Nombre"].ToString(),
+                    Apellido = reader["Apellido"].ToString(),
+                    Ciudad = reader["Ciudad"].ToString(),
+                    Edad = Convert.ToInt32(reader["Edad"]),
+                    FechaDeNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"]),
+                    CorreoElectronico = reader["correo_electronico"].ToString()
+                };
+            }
+            reader.Close();
+            conexion.cerrar();
+            return cliente;
+        }
+
+        public void EliminarUsuarioPorCedula(string cedula)
+        {
+            conexion.abrir();
+            string query = "DELETE FROM Usuarios WHERE cedula = @Cedula";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Cedula", cedula);
+
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+
+        public void InsertarTrabajoCarpinteria(TrabajoCarpinteria trabajo)
+        {
+            conexion.abrir();
+            string query = @"
+            INSERT INTO TrabajosCarpinteria (fecha_inicio, fecha_finalizacion, cantidad, estado, costo, descripcion, foto)
+            VALUES (@FechaInicio, @FechaFin, @Cantidad, @Estado, @Costo, @Descripcion, @Foto)";
+
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@FechaInicio", trabajo.FechaInicio);
+            command.Parameters.AddWithValue("@FechaFin", trabajo.FechaFin);
+            command.Parameters.AddWithValue("@Cantidad", trabajo.Cantidad);
+            command.Parameters.AddWithValue("@Estado", trabajo.Estado);
+            command.Parameters.AddWithValue("@Costo", trabajo.Costo);
+            command.Parameters.AddWithValue("@Descripcion", trabajo.Descripcion);
+            command.Parameters.AddWithValue("@Foto", trabajo.Foto);
+
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+        public TrabajoCarpinteria BuscarTrabajoPorId(int id)
+        {
+            conexion.abrir();
+            string query = "SELECT * FROM TrabajosCarpinteria WHERE id = @Id";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Id", id);
+
+            SqlDataReader reader = command.ExecuteReader();
+            TrabajoCarpinteria trabajo = null;
+
+            if (reader.Read())
+            {
+                trabajo = new TrabajoCarpinteria
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("id")),
+                    FechaInicio = reader.GetDateTime(reader.GetOrdinal("fecha_inicio")),
+                    FechaFin = reader.GetDateTime(reader.GetOrdinal("fecha_finalizacion")),
+                    Cantidad = reader.GetInt32(reader.GetOrdinal("cantidad")),
+                    Estado = reader.GetString(reader.GetOrdinal("estado")),
+                    Costo = reader.GetDecimal(reader.GetOrdinal("costo")),
+                    Descripcion = reader.GetString(reader.GetOrdinal("descripcion")),
+                    Foto = (byte[])reader["foto"] // Asegúrate de manejar adecuadamente los datos binarios
+                };
+            }
+
+            reader.Close();
+            conexion.cerrar();
+            return trabajo;
+        }
+        public void ActualizarTrabajo(int id, DateTime fechaInicio, DateTime fechaFin, int cantidad, string estado)
+        {
+            conexion.abrir();
+            string query = @"
+             UPDATE TrabajosCarpinteria SET
+                fecha_inicio = @FechaInicio,
+                fecha_finalizacion = @FechaFin,
+            cantidad = @Cantidad,
+                estado = @Estado
+             WHERE id = @ID";
+
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+            command.Parameters.AddWithValue("@FechaFin", fechaFin);
+            command.Parameters.AddWithValue("@Cantidad", cantidad);
+            command.Parameters.AddWithValue("@Estado", estado);
+            command.Parameters.AddWithValue("@ID", id);
+
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+        public void EliminarTrabajoCarpinteria(int id)
+        {
+            conexion.abrir();
+
+            // Primero, eliminar todos los pedidos asociados a este trabajo de carpintería
+            string queryEliminarPedidos = "DELETE FROM Pedidos WHERE id_trabajo = @Id";
+            SqlCommand commandEliminarPedidos = new SqlCommand(queryEliminarPedidos, conexion.conexion);
+            commandEliminarPedidos.Parameters.AddWithValue("@Id", id);
+            commandEliminarPedidos.ExecuteNonQuery();
+
+            // Luego, eliminar el trabajo de carpintería
+            string queryEliminarTrabajo = "DELETE FROM TrabajosCarpinteria WHERE id = @Id";
+            SqlCommand commandEliminarTrabajo = new SqlCommand(queryEliminarTrabajo, conexion.conexion);
+            commandEliminarTrabajo.Parameters.AddWithValue("@Id", id);
+            commandEliminarTrabajo.ExecuteNonQuery();
+
+            conexion.cerrar();
+        }
+        public void RegistrarPedido(Pedido pedido)
+        {
+            conexion.abrir();
+            string query = @"
+            INSERT INTO Pedidos (cantidad, total, fecha, id_trabajo, cedula_cliente)
+            VALUES (@Cantidad, @Total, @Fecha, @IdTrabajo, @CedulaCliente)";
+
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Cantidad", pedido.Cantidad);
+            command.Parameters.AddWithValue("@Total", pedido.Total);
+            command.Parameters.AddWithValue("@Fecha", pedido.Fecha);
+            command.Parameters.AddWithValue("@IdTrabajo", pedido.IdTrabajo);
+            command.Parameters.AddWithValue("@CedulaCliente", pedido.CedulaCliente);
+
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+        public List<TrabajoCarpinteria> ObtenerTrabajosCarpinteria()
+        {
+            List<TrabajoCarpinteria> trabajos = new List<TrabajoCarpinteria>();
+            conexion.abrir();
+            string query = "SELECT id, descripcion, cantidad, costo, foto FROM TrabajosCarpinteria"; // Incluye la columna foto
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                trabajos.Add(new TrabajoCarpinteria
+                {
+                    Id = int.Parse(reader["id"].ToString()),
+                    Descripcion = reader["descripcion"].ToString(),
+                    Cantidad = int.Parse(reader["cantidad"].ToString()),
+                    Costo = decimal.Parse(reader["costo"].ToString()),
+                    Foto = reader["foto"] as byte[] // Asegúrate de manejar los datos binarios correctamente
+                });
+            }
+
+            reader.Close();
+            conexion.cerrar();
+            return trabajos;
+        }
+
+        public void ActualizarCantidadTrabajo(int idTrabajo, int nuevaCantidad)
+        {
+            conexion.abrir();
+            string query = "UPDATE TrabajosCarpinteria SET cantidad = @Cantidad WHERE id = @IdTrabajo";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Cantidad", nuevaCantidad);
+            command.Parameters.AddWithValue("@IdTrabajo", idTrabajo);
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+
+        public PedidoDetalle BuscarPedidoPorId(int id)
+        {
+            conexion.abrir();
+            string query = @"
+        SELECT p.cantidad, p.total, p.fecha, tc.descripcion, tc.estado, tc.foto
+        FROM Pedidos p
+        INNER JOIN TrabajosCarpinteria tc ON p.id_trabajo = tc.id
+        WHERE p.id = @Id";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Id", id);
+
+            SqlDataReader reader = command.ExecuteReader();
+            PedidoDetalle pedidoDetalle = null;
+
+            if (reader.Read())
+            {
+                pedidoDetalle = new PedidoDetalle
+                {
+                    Cantidad = reader.GetInt32(reader.GetOrdinal("cantidad")),
+                    Total = reader.GetDecimal(reader.GetOrdinal("total")),
+                    Fecha = reader.GetDateTime(reader.GetOrdinal("fecha")),
+                    Descripcion = reader.GetString(reader.GetOrdinal("descripcion")),
+                    Estado = reader.GetString(reader.GetOrdinal("estado")),
+                    Foto = reader["foto"] as byte[]  // Asegúrate de manejar adecuadamente los datos binarios
+                };
+            }
+
+            reader.Close();
+            conexion.cerrar();
+            return pedidoDetalle;
+        }
+        public bool HayPedidosParaProducto(int idProducto)
+        {
+            conexion.abrir();
+            string query = "SELECT COUNT(*) FROM Pedidos WHERE id_trabajo = @IdProducto";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@IdProducto", idProducto);
+            int count = (int)command.ExecuteScalar();
+            conexion.cerrar();
+            return count > 0;
+        }
+
     }
 }
 
