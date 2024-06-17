@@ -51,33 +51,52 @@ namespace CapaPresentacion
 
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
-            string username = txtUsuario.Text;
-            string password = txtContra.Text;
+            string username = txtUsuario.Text.Trim();
+            string password = txtContra.Text.Trim();
 
-            Usuario usuario = logicaDatos.Login(username, password);
+            // Verificar si el usuario existe
+            bool usuarioExiste = logicaDatos.VerificarUsuario(username);
+            // Verificar si la contraseña es correcta
+            bool contrasenaCorrecta = logicaDatos.VerificarContrasena(username, password);
 
-            if (usuario != null)
+            if (!usuarioExiste && !contrasenaCorrecta)
             {
-                switch (usuario.Role)
-                {
-                    case "admin":
-                        FrmMenuAdmi frmMenuAdmi = new FrmMenuAdmi();
-                        frmMenuAdmi.Show();
-                        this.Hide();
-                        break;
-                    case "user":
-                        FrmMenuUsuario frmMenuUsuario = new FrmMenuUsuario();
-                        frmMenuUsuario.Show();
-                        this.Hide();
-                        break;
-                    default:
-                        MessageBox.Show("No se reconoce el rol del usuario.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                }
+                MessageBox.Show("Usuario y contraseña incorrectos.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!usuarioExiste)
+            {
+                MessageBox.Show("Usuario incorrecto.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!contrasenaCorrecta)
+            {
+                MessageBox.Show("Contraseña incorrecta.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña incorrectos.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Usuario usuario = logicaDatos.Login(username, password);
+                if (usuario != null)
+                {
+                    switch (usuario.Role)
+                    {
+                        case "admin":
+                            FrmMenuAdmi frmMenuAdmi = new FrmMenuAdmi();
+                            frmMenuAdmi.Show();
+                            this.Hide();
+                            break;
+                        case "user":
+                            FrmMenuUsuario frmMenuUsuario = new FrmMenuUsuario();
+                            frmMenuUsuario.Show();
+                            this.Hide();
+                            break;
+                        default:
+                            MessageBox.Show("No se reconoce el rol del usuario.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Usuario y/o contraseña incorrectos.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

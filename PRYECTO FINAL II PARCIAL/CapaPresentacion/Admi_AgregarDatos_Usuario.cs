@@ -15,6 +15,7 @@ namespace CapaPresentacion
     public partial class Admi_AgregarDatos_Usuario : Form
     {
         private ClaseLogicaDatos logicaDatos = new ClaseLogicaDatos();
+        private bool isInvalidDateShown = false; 
 
         public Admi_AgregarDatos_Usuario()
         {
@@ -24,8 +25,10 @@ namespace CapaPresentacion
 
 
         private void Admi_AgregarDatos_Usuario_Load(object sender, EventArgs e)
-        { 
-        
+        {
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18);
         }
 
         private void txtCed_KeyPress(object sender, KeyPressEventArgs e)
@@ -65,7 +68,15 @@ namespace CapaPresentacion
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                SendKeys.Send("{TAB}");  // Pasa al siguiente campo.
+                if (string.IsNullOrEmpty(txtNombre.Text.Trim()))
+                {
+                    MessageBox.Show("El campo Nombre no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNombre.Focus();
+                }
+                else
+                {
+                    SendKeys.Send("{TAB}");  // Pasa al siguiente campo.
+                }
             }
         }
 
@@ -74,7 +85,15 @@ namespace CapaPresentacion
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                SendKeys.Send("{TAB}");  // Pasa al siguiente campo.
+                if (string.IsNullOrEmpty(txtApellido.Text.Trim()))
+                {
+                    MessageBox.Show("El campo Apellido no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtApellido.Focus();
+                }
+                else
+                {
+                    SendKeys.Send("{TAB}");  // Pasa al siguiente campo.
+                }
             }
         }
 
@@ -83,28 +102,75 @@ namespace CapaPresentacion
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                SendKeys.Send("{TAB}");  // Pasa al siguiente campo.
+                if (string.IsNullOrEmpty(txtCiudad.Text.Trim()))
+                {
+                    MessageBox.Show("El campo Ciudad no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCiudad.Focus();
+                }
+                else
+                {
+                    txtCorreo.Focus();  // Enfoca el campo de correo.
+                }
             }
         }
+        private void txtCorreo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Manejar el evento para no propagar el sonido de beep.
 
+                if (string.IsNullOrEmpty(txtCorreo.Text.Trim()))
+                {
+                    MessageBox.Show("El campo Correo no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCorreo.Focus();
+                }
+                else if (!txtCorreo.Text.Contains('@') || !txtCorreo.Text.Contains('.'))
+                {
+                    MessageBox.Show("El correo electrónico debe contener '@' y un dominio válido (ej. '.com').", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCorreo.Clear();
+                    txtCorreo.Focus();
+                }
+                else
+                {
+                    if (logicaDatos.CorreoExiste(txtCorreo.Text))
+                    {
+                        MessageBox.Show("El correo ya está registrado. Por favor, ingrese un correo diferente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCorreo.Clear();
+                        txtCorreo.Focus();
+                    }
+                    else
+                    {
+                        dateTimePicker1.Focus();  // Enfoca el campo de fecha de nacimiento.
+                    }
+                }
+            }
+
+        }
         private void dateTimePicker1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                // Calcula la edad basada en la fecha seleccionada.
+
                 var edadCalculada = DateTime.Today.Year - dateTimePicker1.Value.Year;
                 if (dateTimePicker1.Value.Date > DateTime.Today.AddYears(-edadCalculada)) edadCalculada--;
-                if (edadCalculada < 15)
+
+                if (edadCalculada < 18 && !isInvalidDateShown)
                 {
-                    MessageBox.Show("Se necesita una edad mínima de 15 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Se necesita una edad mínima de 18 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     dateTimePicker1.Focus();
+                    isInvalidDateShown = true; // Marca que el mensaje ya se mostró
+                }
+                else if (edadCalculada >= 18)
+                {
+                    isInvalidDateShown = false; // Resetea la bandera si la fecha es válida
                 }
                 else
                 {
-                    SendKeys.Send("{TAB}");  // Pasa al siguiente campo si la edad es válida.
+                    txtEdad.Focus();  // Enfoca el campo de edad.
                 }
             }
+
         }
 
         private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
@@ -112,7 +178,14 @@ namespace CapaPresentacion
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                int edadIngresada = int.Parse(txtEdad.Text);
+                if (!int.TryParse(txtEdad.Text, out int edadIngresada))
+                {
+                    MessageBox.Show("Por favor, ingrese una edad válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtEdad.Clear();
+                    txtEdad.Focus();
+                    return;
+                }
+
                 var edadCalculada = DateTime.Today.Year - dateTimePicker1.Value.Year;
                 if (dateTimePicker1.Value.Date > DateTime.Today.AddYears(-edadCalculada)) edadCalculada--;
 
@@ -124,44 +197,12 @@ namespace CapaPresentacion
                 }
                 else
                 {
-                    SendKeys.Send("{TAB}");  // Pasa al siguiente campo si todo está correcto.
+                    btnGuardar.Focus();  // Enfocar el botón Guardar si todo está correcto.
                 }
             }
         }
 
-        private void txtCorreo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-
-                e.Handled = true; // Manejar el evento para no propagar el sonido de beep.
-
-                // Verificación básica del formato del correo
-                if (!txtCorreo.Text.Contains('@') || !txtCorreo.Text.Contains('.'))
-                {
-                    MessageBox.Show("El correo electrónico debe contener '@' y un dominio válido (ej. '.com').", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCorreo.Clear();
-                    txtCorreo.Focus();
-                }
-                else
-                {
-                    // Verificación de la unicidad del correo
-                    if (logicaDatos.CorreoExiste(txtCorreo.Text))
-                    {
-                        MessageBox.Show("El correo ya está registrado. Por favor, ingrese un correo diferente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCorreo.Clear();
-                        txtCorreo.Focus();
-                    }
-                    else
-                    {
-                        // Aquí podría ir el código para registrar al usuario si es que toda la validación ha pasado.
-                        MessageBox.Show("Todos los datos son válidos. Proceda con el registro.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-
-               
-        }
+       
          
     private void btnGuardar_Click(object sender, EventArgs e)
         {

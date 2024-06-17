@@ -26,6 +26,15 @@ namespace CapaLogica
             operaciones.InsertarCliente(cliente);
         }
 
+        public bool VerificarUsuario(string username)
+        {
+            return operaciones.VerificarUsuario(username);
+        }
+
+        public bool VerificarContrasena(string username, string password)
+        {
+            return operaciones.VerificarContrasena(username, password);
+        }
         public bool ExistenUsuariosRegistrados()
         {
             return operaciones.ExistenUsuariosRegistrados();

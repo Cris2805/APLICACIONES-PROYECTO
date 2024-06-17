@@ -39,6 +39,29 @@ namespace CapaDatos
             return usuario;
         }
 
+        public bool VerificarUsuario(string username)
+        {
+            conexion.abrir();
+            SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Usuarios WHERE usuario = @Username", conexion.conexion);
+            command.Parameters.AddWithValue("@Username", username);
+            int count = (int)command.ExecuteScalar();
+            conexion.cerrar();
+            return count > 0;
+        }
+
+
+
+        public bool VerificarContrasena(string username, string password)
+        {
+            conexion.abrir();
+            SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Usuarios WHERE usuario = @Username AND contrasena = @Password", conexion.conexion);
+            command.Parameters.AddWithValue("@Username", username);
+            command.Parameters.AddWithValue("@Password", password);
+            int count = (int)command.ExecuteScalar();
+            conexion.cerrar();
+            return count > 0;
+        }
+
 
         public bool ExistenUsuariosRegistrados()
         {
@@ -49,15 +72,7 @@ namespace CapaDatos
             return count > 0;
         }
 
-        public bool VerificarUsuario(string username)
-        {
-            conexion.abrir();
-            SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Usuarios WHERE usuario = @Username", conexion.conexion);
-            command.Parameters.AddWithValue("@Username", username);
-            int count = (int)command.ExecuteScalar();
-            conexion.cerrar();
-            return count > 0;
-        }
+      
 
         public void InsertarUsuario(Usuario usuario)
         {

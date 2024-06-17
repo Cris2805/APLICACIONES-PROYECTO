@@ -54,10 +54,10 @@
             this.BtnRegistrarse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnRegistrarse.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRegistrarse.ForeColor = System.Drawing.Color.Black;
-            this.BtnRegistrarse.Location = new System.Drawing.Point(9, 380);
-            this.BtnRegistrarse.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnRegistrarse.Location = new System.Drawing.Point(12, 468);
+            this.BtnRegistrarse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnRegistrarse.Name = "BtnRegistrarse";
-            this.BtnRegistrarse.Size = new System.Drawing.Size(320, 36);
+            this.BtnRegistrarse.Size = new System.Drawing.Size(427, 44);
             this.BtnRegistrarse.TabIndex = 13;
             this.BtnRegistrarse.Text = "Registrarse";
             this.BtnRegistrarse.UseVisualStyleBackColor = false;
@@ -71,10 +71,10 @@
             this.BtnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnIngresar.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnIngresar.ForeColor = System.Drawing.Color.White;
-            this.BtnIngresar.Location = new System.Drawing.Point(9, 346);
-            this.BtnIngresar.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnIngresar.Location = new System.Drawing.Point(12, 426);
+            this.BtnIngresar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnIngresar.Name = "BtnIngresar";
-            this.BtnIngresar.Size = new System.Drawing.Size(320, 35);
+            this.BtnIngresar.Size = new System.Drawing.Size(427, 43);
             this.BtnIngresar.TabIndex = 12;
             this.BtnIngresar.Text = "Acceder:";
             this.BtnIngresar.UseVisualStyleBackColor = false;
@@ -83,23 +83,21 @@
             // txtContra
             // 
             this.txtContra.Font = new System.Drawing.Font("Segoe UI Variable Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContra.Location = new System.Drawing.Point(89, 285);
-            this.txtContra.Margin = new System.Windows.Forms.Padding(2);
-            this.txtContra.Multiline = true;
+            this.txtContra.Location = new System.Drawing.Point(119, 351);
+            this.txtContra.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtContra.Name = "txtContra";
             this.txtContra.PasswordChar = '*';
-            this.txtContra.Size = new System.Drawing.Size(215, 38);
+            this.txtContra.Size = new System.Drawing.Size(285, 39);
             this.txtContra.TabIndex = 11;
             this.txtContra.TextChanged += new System.EventHandler(this.txtContra_TextChanged);
             // 
             // txtUsuario
             // 
             this.txtUsuario.Font = new System.Drawing.Font("Segoe UI Variable Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsuario.Location = new System.Drawing.Point(89, 212);
-            this.txtUsuario.Margin = new System.Windows.Forms.Padding(2);
-            this.txtUsuario.Multiline = true;
+            this.txtUsuario.Location = new System.Drawing.Point(119, 261);
+            this.txtUsuario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(215, 38);
+            this.txtUsuario.Size = new System.Drawing.Size(285, 39);
             this.txtUsuario.TabIndex = 10;
             // 
             // lblContra
@@ -107,10 +105,9 @@
             this.lblContra.AutoSize = true;
             this.lblContra.Font = new System.Drawing.Font("Segoe UI Symbol", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblContra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
-            this.lblContra.Location = new System.Drawing.Point(44, 264);
-            this.lblContra.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblContra.Location = new System.Drawing.Point(59, 325);
             this.lblContra.Name = "lblContra";
-            this.lblContra.Size = new System.Drawing.Size(97, 20);
+            this.lblContra.Size = new System.Drawing.Size(123, 25);
             this.lblContra.TabIndex = 9;
             this.lblContra.Text = "Contraseña:";
             // 
@@ -119,10 +116,9 @@
             this.lblusuario.AutoSize = true;
             this.lblusuario.Font = new System.Drawing.Font("Segoe UI Symbol", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblusuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
-            this.lblusuario.Location = new System.Drawing.Point(44, 189);
-            this.lblusuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblusuario.Location = new System.Drawing.Point(59, 233);
             this.lblusuario.Name = "lblusuario";
-            this.lblusuario.Size = new System.Drawing.Size(70, 20);
+            this.lblusuario.Size = new System.Drawing.Size(89, 25);
             this.lblusuario.TabIndex = 8;
             this.lblusuario.Text = "Usuario:";
             // 
@@ -139,17 +135,19 @@
             this.panel1.Controls.Add(this.BtnRegistrarse);
             this.panel1.Controls.Add(this.lblContra);
             this.panel1.Controls.Add(this.lblusuario);
-            this.panel1.Location = new System.Drawing.Point(31, 36);
+            this.panel1.Location = new System.Drawing.Point(41, 44);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(342, 421);
+            this.panel1.Size = new System.Drawing.Size(456, 518);
             this.panel1.TabIndex = 14;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CapaPresentacion.Properties.Resources.Inicio_Gif;
-            this.pictureBox1.Location = new System.Drawing.Point(89, 46);
+            this.pictureBox1.Location = new System.Drawing.Point(119, 57);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(161, 135);
+            this.pictureBox1.Size = new System.Drawing.Size(215, 166);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
@@ -157,18 +155,20 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::CapaPresentacion.Properties.Resources.Contra;
-            this.pictureBox3.Location = new System.Drawing.Point(48, 285);
+            this.pictureBox3.Location = new System.Drawing.Point(64, 351);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(41, 38);
+            this.pictureBox3.Size = new System.Drawing.Size(55, 47);
             this.pictureBox3.TabIndex = 16;
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::CapaPresentacion.Properties.Resources.User;
-            this.pictureBox2.Location = new System.Drawing.Point(48, 212);
+            this.pictureBox2.Location = new System.Drawing.Point(64, 261);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(41, 38);
+            this.pictureBox2.Size = new System.Drawing.Size(55, 47);
             this.pictureBox2.TabIndex = 15;
             this.pictureBox2.TabStop = false;
             // 
@@ -177,22 +177,21 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
-            this.label1.Location = new System.Drawing.Point(2, 6);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 37);
+            this.label1.Size = new System.Drawing.Size(273, 46);
             this.label1.TabIndex = 14;
             this.label1.Text = "Inicio De Sesión";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
-            this.ClientSize = new System.Drawing.Size(402, 494);
+            this.ClientSize = new System.Drawing.Size(536, 608);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

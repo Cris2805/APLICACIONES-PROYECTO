@@ -15,6 +15,7 @@ namespace CapaPresentacion
     public partial class FrmEditarPorNombre : Form
     {
         private ClaseLogicaDatos logicaDatos = new ClaseLogicaDatos();
+        private bool isInvalidDateShown = false; // Ba
         public FrmEditarPorNombre()
         {
             InitializeComponent();
@@ -63,7 +64,7 @@ namespace CapaPresentacion
                     CorreoElectronico = txtcorreo.Text
                 };
 
-                logicaDatos.ActualizarDatosClientePorCorreo(textBox1.Text, clienteActualizado);
+                logicaDatos.ActualizarDatosClientePorCorreo(correoOriginal, clienteActualizado);
                 MessageBox.Show("Datos actualizados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -112,6 +113,31 @@ namespace CapaPresentacion
         private void label16_Click(object sender, EventArgs e)
         {
 
+        }
+
+       
+        private void FrmEditarPorNombre_Load(object sender, EventArgs e)
+        {
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18); // Limita la fecha de nacimiento a hace 18 años desde hoy
+        }
+
+        private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
+        {
+            var edadCalculada = DateTime.Today.Year - dateTimePicker1.Value.Year;
+            if (dateTimePicker1.Value.Date > DateTime.Today.AddYears(-edadCalculada)) edadCalculada--;
+
+            if (edadCalculada < 18 && !isInvalidDateShown)
+            {
+                MessageBox.Show("Se necesita una edad mínima de 18 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dateTimePicker1.Focus();
+                isInvalidDateShown = true; // Marca que el mensaje ya se mostró
+            }
+            else if (edadCalculada >= 18)
+            {
+                isInvalidDateShown = false; // Resetea la bandera si la fecha es válida
+            }
         }
     }
 }
