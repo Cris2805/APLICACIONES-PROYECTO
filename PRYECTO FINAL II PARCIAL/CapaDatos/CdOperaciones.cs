@@ -371,24 +371,6 @@ namespace CapaDatos
             command.ExecuteNonQuery();
             conexion.cerrar();
         }
-        public void EliminarTrabajoCarpinteria(int id)
-        {
-            conexion.abrir();
-
-            // Primero, eliminar todos los pedidos asociados a este trabajo de carpintería
-            string queryEliminarPedidos = "DELETE FROM Pedidos WHERE id_trabajo = @Id";
-            SqlCommand commandEliminarPedidos = new SqlCommand(queryEliminarPedidos, conexion.conexion);
-            commandEliminarPedidos.Parameters.AddWithValue("@Id", id);
-            commandEliminarPedidos.ExecuteNonQuery();
-
-            // Luego, eliminar el trabajo de carpintería
-            string queryEliminarTrabajo = "DELETE FROM TrabajosCarpinteria WHERE id = @Id";
-            SqlCommand commandEliminarTrabajo = new SqlCommand(queryEliminarTrabajo, conexion.conexion);
-            commandEliminarTrabajo.Parameters.AddWithValue("@Id", id);
-            commandEliminarTrabajo.ExecuteNonQuery();
-
-            conexion.cerrar();
-        }
         public void RegistrarPedido(Pedido pedido)
         {
             conexion.abrir();
@@ -482,6 +464,46 @@ namespace CapaDatos
             int count = (int)command.ExecuteScalar();
             conexion.cerrar();
             return count > 0;
+        }
+        public void EliminarPedidosPorTrabajo(int idProducto)
+        {
+            conexion.abrir();
+            string query = "DELETE FROM Pedidos WHERE id_trabajo = @IdProducto";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@IdProducto", idProducto);
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+
+        public void EliminarTrabajoCarpinteria(int id)
+        {
+            // Primero eliminar los pedidos asociados
+            EliminarPedidosPorTrabajo(id);
+
+            // Luego eliminar el trabajo
+            conexion.abrir();
+            string query = "DELETE FROM TrabajosCarpinteria WHERE id = @Id";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Id", id);
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
+        public bool HayTrabajos()
+        {
+            conexion.abrir();
+            string query = "SELECT COUNT(*) FROM TrabajosCarpinteria";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            int count = (int)command.ExecuteScalar();
+            conexion.cerrar();
+            return count > 0;
+        }
+        public void ReiniciarContadorTrabajosCarpinteria()
+        {
+            conexion.abrir();
+            string query = "DBCC CHECKIDENT ('TrabajosCarpinteria', RESEED, 0)";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.ExecuteNonQuery();
+            conexion.cerrar();
         }
 
     }

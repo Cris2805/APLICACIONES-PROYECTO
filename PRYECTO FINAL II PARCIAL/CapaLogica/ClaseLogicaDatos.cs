@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 using CapaDatos;
 using CapaEntidades;
 
-
-
-
 namespace CapaLogica
 {
     public  class ClaseLogicaDatos
@@ -126,10 +123,6 @@ namespace CapaLogica
                 throw new Exception("No se pudo actualizar el trabajo.", ex);
             }
         }
-        public void EliminarTrabajo(int id)
-        {
-            operaciones.EliminarTrabajoCarpinteria(id);
-        }
         public void RegistrarPedido(Pedido pedido)
         {
             operaciones.RegistrarPedido(pedido);
@@ -150,7 +143,19 @@ namespace CapaLogica
         {
             return operaciones.HayPedidosParaProducto(idProducto);
         }
+        public void EliminarTrabajo(int idProducto)
+        {
+            operaciones.EliminarTrabajoCarpinteria(idProducto);
+            ReiniciarContadorSiNoHayTrabajos();
+        }
 
+        private void ReiniciarContadorSiNoHayTrabajos()
+        {
+            if (!operaciones.HayTrabajos())
+            {
+                operaciones.ReiniciarContadorTrabajosCarpinteria();
+            }
+        }
     }
 }
 

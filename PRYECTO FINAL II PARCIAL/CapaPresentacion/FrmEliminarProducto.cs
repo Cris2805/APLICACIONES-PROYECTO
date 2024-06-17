@@ -28,20 +28,41 @@ namespace CapaPresentacion
                 int idProducto;
                 if (int.TryParse(txtIDProducto.Text, out idProducto))
                 {
-                    // Verificar si hay pedidos asociados al producto
-                    if (logicaDatos.HayPedidosParaProducto(idProducto))
+                    // Verificar si el producto existe
+                    var trabajo = logicaDatos.BuscarTrabajoPorId(idProducto);
+                    if (trabajo != null)
                     {
-                        if (MessageBox.Show("¿Está seguro de que desea eliminar este producto? Hay pedidos asociados que también se eliminarán.", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        // Verificar si hay pedidos asociados al producto
+                        if (logicaDatos.HayPedidosParaProducto(idProducto))
                         {
-                            try
+                            if (MessageBox.Show("¿Está seguro de que desea eliminar este producto? Hay pedidos asociados que también se eliminarán.", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
-                                logicaDatos.EliminarTrabajo(idProducto);
-                                MessageBox.Show("Producto y pedidos asociados eliminados correctamente.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                txtIDProducto.Clear();
+                                try
+                                {
+                                    logicaDatos.EliminarTrabajo(idProducto);
+                                    MessageBox.Show("Producto y pedidos asociados eliminados correctamente.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    txtIDProducto.Clear();
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error al eliminar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
-                            catch (Exception ex)
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("¿Está seguro de que desea eliminar este producto? No hay pedidos asociados.", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
-                                MessageBox.Show("Error al eliminar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                try
+                                {
+                                    logicaDatos.EliminarTrabajo(idProducto);
+                                    MessageBox.Show("Producto eliminado correctamente.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    txtIDProducto.Clear();
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error al eliminar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
                     }
