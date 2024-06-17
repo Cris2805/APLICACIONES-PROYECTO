@@ -90,6 +90,8 @@ namespace CapaPresentacion
                     txtedad.Text = cliente.Edad.ToString();
                     dateTimePicker1.Value = cliente.FechaDeNacimiento;
                     txtcorreo.Text = cliente.CorreoElectronico;
+                    dateTimePicker1.Enabled = false;
+                    txtedad.Enabled = false;
                 }
                 else
                 {
@@ -100,7 +102,13 @@ namespace CapaPresentacion
                     txtciudad.Clear();
                     txtedad.Clear();
                     txtcorreo.Clear();
-                    dateTimePicker1.Value = DateTime.Today;
+                    
+                    dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18);
+                    dateTimePicker1.MinDate = new DateTime(1900, 1, 1);
+                    dateTimePicker1.Value = dateTimePicker1.MaxDate;
+
+                    dateTimePicker1.Enabled = false;
+                    txtedad.Enabled = false;
                 }
             }
         }
@@ -121,6 +129,8 @@ namespace CapaPresentacion
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
             dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18); // Limita la fecha de nacimiento a hace 18 años desde hoy
+            dateTimePicker1.MinDate = new DateTime(1900, 1, 1);
+            dateTimePicker1.Value = dateTimePicker1.MaxDate;
         }
 
         private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
@@ -138,6 +148,11 @@ namespace CapaPresentacion
             {
                 isInvalidDateShown = false; // Resetea la bandera si la fecha es válida
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

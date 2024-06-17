@@ -73,9 +73,9 @@ namespace CapaPresentacion
         }
         private byte[] ImageToByteArray(Image image)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
-                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                image.Save(ms, image.RawFormat);
                 return ms.ToArray();
             }
         }
@@ -108,6 +108,13 @@ namespace CapaPresentacion
                 return;
             }
 
+            // Convertir imagen a bytes
+            byte[] imagenBytes = null;
+            if (pictureBox1.Image != null)
+            {
+                imagenBytes = ImageToByteArray(pictureBox1.Image);
+            }
+
             // Asumiendo que ya has validado los datos correctamente
             TrabajoCarpinteria nuevoTrabajo = new TrabajoCarpinteria
             {
@@ -117,7 +124,7 @@ namespace CapaPresentacion
                 Estado = ComboxEstado.SelectedItem.ToString(),
                 Costo = costo, // Usar el valor numérico del costo
                 Descripcion = ComboxTrabajo.SelectedItem.ToString(),
-                Foto = ImageToByteArray(pictureBox1.Image)  // Asumiendo que tienes un método para convertir imágenes a byte array
+                Foto = imagenBytes
             };
 
             try

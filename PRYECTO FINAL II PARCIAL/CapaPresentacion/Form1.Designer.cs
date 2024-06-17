@@ -35,10 +35,10 @@
             this.lblContra = new System.Windows.Forms.Label();
             this.lblusuario = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -90,6 +90,7 @@
             this.txtContra.Size = new System.Drawing.Size(285, 39);
             this.txtContra.TabIndex = 11;
             this.txtContra.TextChanged += new System.EventHandler(this.txtContra_TextChanged);
+            this.txtContra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContra_KeyPress);
             // 
             // txtUsuario
             // 
@@ -99,6 +100,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(285, 39);
             this.txtUsuario.TabIndex = 10;
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
             // lblContra
             // 
@@ -136,16 +138,28 @@
             this.panel1.Controls.Add(this.lblContra);
             this.panel1.Controls.Add(this.lblusuario);
             this.panel1.Location = new System.Drawing.Point(41, 44);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(456, 518);
             this.panel1.TabIndex = 14;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
+            this.label1.Location = new System.Drawing.Point(111, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(273, 46);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Inicio De Sesión";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CapaPresentacion.Properties.Resources.Inicio_Gif;
             this.pictureBox1.Location = new System.Drawing.Point(119, 57);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(215, 166);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -156,7 +170,7 @@
             // 
             this.pictureBox3.Image = global::CapaPresentacion.Properties.Resources.Contra;
             this.pictureBox3.Location = new System.Drawing.Point(64, 351);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(55, 47);
             this.pictureBox3.TabIndex = 16;
@@ -166,23 +180,11 @@
             // 
             this.pictureBox2.Image = global::CapaPresentacion.Properties.Resources.User;
             this.pictureBox2.Location = new System.Drawing.Point(64, 261);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(55, 47);
             this.pictureBox2.TabIndex = 15;
             this.pictureBox2.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
-            this.label1.Location = new System.Drawing.Point(3, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(273, 46);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Inicio De Sesión";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 

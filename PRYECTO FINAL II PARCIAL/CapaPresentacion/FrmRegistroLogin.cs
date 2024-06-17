@@ -14,36 +14,48 @@ namespace CapaPresentacion
 {
     public partial class FrmRegistroLogin : Form
     {
-
+        public event EventHandler RegistroCompletado;
         private ClaseLogicaDatos logicaDatos = new ClaseLogicaDatos();
 
         public FrmRegistroLogin()
         {
             InitializeComponent();
-            this.txtUsuario.KeyPress += new KeyPressEventHandler(Txt_KeyPress);
-            this.txtContra.KeyPress += new KeyPressEventHandler(Txt_KeyPress);
-            this.txtCed.KeyPress += new KeyPressEventHandler(Txt_KeyPress);
-            this.comboBox1.KeyPress += new KeyPressEventHandler(Txt_KeyPress);
-        }
 
-        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
+            txtEdad.Enabled = false;
+
+            // Limitar la fecha mínima del DateTimePicker
+            dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18);
+            AjustarOpcionesComboBox();
+        }
+        private void AjustarOpcionesComboBox()
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (logicaDatos.ExistenUsuariosRegistrados())
             {
-                Control nextControl = this.GetNextControl((Control)sender, true);
-                if (nextControl != null)
-                {
-                    e.Handled = true;  // Indica que el evento KeyPress ha sido manejado
-                    nextControl.Focus();  // Mueve el foco al siguiente control
-                }
+                comboBox1.Items.Clear();
+                comboBox1.Items.Add("user");
+                comboBox1.SelectedIndex = 0;
+                comboBox1.Enabled = false;
+            }
+            else
+            {
+                comboBox1.Items.Clear();
+                comboBox1.Items.Add("admin");
+                comboBox1.SelectedIndex = 0;
+                comboBox1.Enabled = false;
             }
         }
+
 
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                if (logicaDatos.UsuarioExiste(txtUsuario.Text))
+                if (string.IsNullOrWhiteSpace(txtUsuario.Text))
+                {
+                    MessageBox.Show("El nombre de usuario no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtUsuario.Focus();
+                }
+                else if (logicaDatos.UsuarioExiste(txtUsuario.Text))
                 {
                     MessageBox.Show("El nombre de usuario ya está en uso. Por favor, elige otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtUsuario.Clear();
@@ -51,10 +63,9 @@ namespace CapaPresentacion
                 }
                 else
                 {
-                    // Mover el foco al siguiente control si la validación es exitosa
-                    this.SelectNextControl((Control)sender, true, true, true, true);
+                    txtContra.Focus();
                 }
-                e.Handled = true; // Maneja el evento Enter para no propagar el sonido de beep
+                e.Handled = true;
             }
         }
 
@@ -63,7 +74,7 @@ namespace CapaPresentacion
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             string username = txtUsuario.Text;
-            string password = txtContra.Text; // Considera hashear la contraseña
+            string password = txtContra.Text;
             string role = comboBox1.SelectedItem.ToString();
             string cedula = txtCed.Text;
             string nombre = txtNombre.Text;
@@ -73,10 +84,10 @@ namespace CapaPresentacion
             DateTime fechaNacimiento = dateTimePicker1.Value;
             string correo = txtCorreo.Text;
 
-
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(cedula) || string.IsNullOrWhiteSpace(nombre) ||
-                string.IsNullOrWhiteSpace(apellido))
+                string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(ciudad) ||
+                string.IsNullOrWhiteSpace(correo))
             {
                 MessageBox.Show("Por favor, complete todos los campos requeridos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -99,14 +110,14 @@ namespace CapaPresentacion
                     CorreoElectronico = correo
                 };
 
-                logicaDatos.RegistrarCliente(nuevoCliente); // Asume que este método maneja la inserción en la base de datos
+                logicaDatos.RegistrarCliente(nuevoCliente);
             }
 
             // Crea un nuevo usuario
             Usuario nuevoUsuario = new Usuario
             {
                 Username = username,
-                Password = password, // Asegúrate de hashear la contraseña aquí
+                Password = password,
                 Role = role,
                 Cedula = cedula
             };
@@ -115,13 +126,20 @@ namespace CapaPresentacion
             {
                 logicaDatos.RegistrarUsuario(nuevoUsuario);
                 MessageBox.Show("El usuario ha sido registrado con éxito.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close(); // Opcional: Cierra el formulario después del registro
+
+                // Lanzar el evento RegistroCompletado
+                RegistroCompletado?.Invoke(this, EventArgs.Empty);
+
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al registrar el usuario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
+        
+    }
+    
+
 
         
 
@@ -143,6 +161,8 @@ namespace CapaPresentacion
                 txtApellido.Text = cliente.Apellido;
                 txtCiudad.Text = cliente.Ciudad;
                 txtEdad.Text = cliente.Edad.ToString();
+                dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18);
+                dateTimePicker1.MinDate = new DateTime(1900, 1, 1);
                 dateTimePicker1.Value = cliente.FechaDeNacimiento;
                 txtCorreo.Text = cliente.CorreoElectronico;
             }
@@ -154,8 +174,11 @@ namespace CapaPresentacion
                 txtCiudad.Clear();
                 txtEdad.Clear();
                 txtCorreo.Clear();
-                dateTimePicker1.Value = DateTime.Today;
+                dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18);
+                dateTimePicker1.MinDate = new DateTime(1900, 1, 1);
+                dateTimePicker1.Value = dateTimePicker1.MaxDate;
             }
+            txtNombre.Focus();
         }
 
         private void txtContra_TextChanged(object sender, EventArgs e)
@@ -165,53 +188,30 @@ namespace CapaPresentacion
 
         private void txtCed_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == (char)Keys.Enter)
             {
-                if (e.KeyChar == (char)Keys.Enter)
+                e.Handled = true;
+                if (string.IsNullOrWhiteSpace(txtCed.Text))
                 {
-                    if (!logicaDatos.ValidarCedula(txtCed.Text))
-                    {
-                        MessageBox.Show("La cédula ingresada no es válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCed.Clear();
-                        txtCed.Focus();
-                    }
-                    else
-                    {
-                        this.SelectNextControl((Control)sender, true, true, true, true);
-                    }
-                    e.Handled = true;
+                    MessageBox.Show("Por favor, ingrese la cédula.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCed.Focus();
+                }
+                else if (!logicaDatos.ValidarCedula(txtCed.Text))
+                {
+                    MessageBox.Show("La cédula ingresada no es válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCed.Clear();
+                    txtCed.Focus();
+                }
+                else
+                {
+                    txtNombre.Focus();
                 }
             }
         }
 
         private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                if (!int.TryParse(txtEdad.Text, out int edadIngresada) || edadIngresada <= 0)
-                {
-                    MessageBox.Show("Ingrese una edad válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtEdad.Clear();
-                    txtEdad.Focus();
-                }
-                else
-                {
-                    // Calcula la edad basada en la fecha de nacimiento seleccionada
-                    int calculoEdad = DateTime.Today.Year - dateTimePicker1.Value.Year;
-                    if (dateTimePicker1.Value > DateTime.Today.AddYears(-calculoEdad)) calculoEdad--;
-
-                    if (calculoEdad != edadIngresada)
-                    {
-                        MessageBox.Show("La edad no coincide con la fecha de nacimiento proporcionada. Por favor, corrija la edad o la fecha de nacimiento.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtEdad.Focus();
-                    }
-                    else
-                    {
-                        // Mover el foco al siguiente control si la edad es correcta
-                        this.SelectNextControl((Control)sender, true, true, true, true);
-                    }
-                }
-                e.Handled = true; // Maneja el evento Enter para evitar el sonido de beep
-            }
+            e.Handled = true; //
         }
 
         private void txtCorreo_TextChanged(object sender, EventArgs e)
@@ -221,58 +221,50 @@ namespace CapaPresentacion
 
         private void txtCorreo_KeyPress(object sender, KeyPressEventArgs e)
         {
+
             if (e.KeyChar == (char)Keys.Enter)
             {
-                e.Handled = true; // Manejar el evento para no propagar el sonido de beep.
+                e.Handled = true;
 
-                // Verificación básica del formato del correo
-                if (!txtCorreo.Text.Contains('@') || !txtCorreo.Text.Contains('.'))
+                if (string.IsNullOrWhiteSpace(txtCorreo.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese el correo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCorreo.Focus();
+                }
+                else if (!txtCorreo.Text.Contains('@') || !txtCorreo.Text.Contains('.'))
                 {
                     MessageBox.Show("El correo electrónico debe contener '@' y un dominio válido (ej. '.com').", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCorreo.Clear();
                     txtCorreo.Focus();
                 }
+                else if (logicaDatos.CorreoExiste(txtCorreo.Text))
+                {
+                    MessageBox.Show("El correo ya está registrado. Por favor, ingrese un correo diferente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCorreo.Clear();
+                    txtCorreo.Focus();
+                }
                 else
                 {
-                    // Verificación de la unicidad del correo
-                    if (logicaDatos.CorreoExiste(txtCorreo.Text))
-                    {
-                        MessageBox.Show("El correo ya está registrado. Por favor, ingrese un correo diferente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCorreo.Clear();
-                        txtCorreo.Focus();
-                    }
-                    else
-                    {
-                        // Si todo está correcto, pasar al siguiente control
-                        this.SelectNextControl((Control)sender, true, true, true, true);
-                    }
+                    txtCiudad.Focus();
                 }
             }
         }
 
         private void dateTimePicker1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-              
-                
-                    this.SelectNextControl((Control)sender, true, true, true, true);
-                
-                e.Handled = true;
-            }
+           
         }
 
         private void FrmRegistroLogin_Load(object sender, EventArgs e)
         {
-
+            dateTimePicker1.MaxDate = DateTime.Today.AddYears(-18);
+            dateTimePicker1.Value = dateTimePicker1.MaxDate;
         }
 
         private void txtContra_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                // Verifica si la contraseña cumple con una longitud mínima de 6 caracteres
-                // y podría incluir más validaciones de complejidad si fuera necesario
                 if (txtContra.Text.Length < 6)
                 {
                     MessageBox.Show("La contraseña debe tener al menos 6 caracteres.", "Contraseña demasiado corta", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -281,10 +273,9 @@ namespace CapaPresentacion
                 }
                 else
                 {
-                    // Mueve el foco al siguiente control si la contraseña es válida
-                    this.SelectNextControl((Control)sender, true, true, true, true);
+                    txtconfirmarcontra.Focus();
                 }
-                e.Handled = true; // Maneja el evento Enter para no propagar el sonido de beep
+                e.Handled = true;
             }
         }
 
@@ -296,6 +287,102 @@ namespace CapaPresentacion
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese el nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNombre.Focus();
+                }
+                else
+                {
+                    txtApellido.Focus();
+                }
+            }
+        }
+
+        private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                if (string.IsNullOrWhiteSpace(txtApellido.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese el apellido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtApellido.Focus();
+                }
+                else
+                {
+                    txtCorreo.Focus();
+                }
+            }
+
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                txtCiudad.Focus();
+            }
+        }
+
+        private void txtCiudad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                if (string.IsNullOrWhiteSpace(txtCiudad.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese la ciudad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCiudad.Focus();
+                }
+                else
+                {
+                    dateTimePicker1.Focus();
+                }
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            int edadCalculada = DateTime.Today.Year - dateTimePicker1.Value.Year;
+            if (dateTimePicker1.Value.Date > DateTime.Today.AddYears(-edadCalculada)) edadCalculada--;
+
+            if (edadCalculada < 18)
+            {
+                MessageBox.Show("Debe tener al menos 18 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dateTimePicker1.Focus();
+            }
+            else
+            {
+                txtEdad.Text = edadCalculada.ToString();
+                txtUsuario.Focus();
+            }
+        }
+
+        private void txtconfirmarcontra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (txtconfirmarcontra.Text != txtContra.Text)
+                {
+                    MessageBox.Show("Las contraseñas no coinciden. Por favor, ingrese nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtconfirmarcontra.Clear();
+                    txtconfirmarcontra.Focus();
+                }
+                else
+                {
+                    BtnGuardar.Focus();
+                }
+                e.Handled = true;
+            }
         }
     }
 }

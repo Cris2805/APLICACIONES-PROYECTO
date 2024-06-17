@@ -20,7 +20,8 @@ namespace CapaPresentacion
         public Admi_AgregarDatos_Usuario()
         {
             InitializeComponent();
-            
+            txtEdad.Enabled = false; // Deshabilitar el campo de edad
+
         }
 
 
@@ -148,28 +149,7 @@ namespace CapaPresentacion
         }
         private void dateTimePicker1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true;
-
-                var edadCalculada = DateTime.Today.Year - dateTimePicker1.Value.Year;
-                if (dateTimePicker1.Value.Date > DateTime.Today.AddYears(-edadCalculada)) edadCalculada--;
-
-                if (edadCalculada < 18 && !isInvalidDateShown)
-                {
-                    MessageBox.Show("Se necesita una edad mínima de 18 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    dateTimePicker1.Focus();
-                    isInvalidDateShown = true; // Marca que el mensaje ya se mostró
-                }
-                else if (edadCalculada >= 18)
-                {
-                    isInvalidDateShown = false; // Resetea la bandera si la fecha es válida
-                }
-                else
-                {
-                    txtEdad.Focus();  // Enfoca el campo de edad.
-                }
-            }
+           
 
         }
 
@@ -239,6 +219,7 @@ namespace CapaPresentacion
                 logicaDatos.RegistrarCliente(nuevoCliente);
 
                 MessageBox.Show("Cliente registrado con éxito.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
                 // Opcional: limpiar campos después de un registro exitoso o cerrar el formulario
             }
             catch (Exception ex)
@@ -255,6 +236,23 @@ namespace CapaPresentacion
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            var edadCalculada = DateTime.Today.Year - dateTimePicker1.Value.Year;
+            if (dateTimePicker1.Value.Date > DateTime.Today.AddYears(-edadCalculada)) edadCalculada--;
+
+            if (edadCalculada < 18)
+            {
+                MessageBox.Show("Debe tener al menos 18 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dateTimePicker1.Focus();
+                txtEdad.Clear();
+            }
+            else
+            {
+                txtEdad.Text = edadCalculada.ToString();
+            }
         }
     }
     

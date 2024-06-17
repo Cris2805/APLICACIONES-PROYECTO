@@ -27,26 +27,29 @@ namespace CapaPresentacion
         {
             if (!logicaDatos.ExistenUsuariosRegistrados())
             {
+                txtUsuario.Enabled = false;
+                txtContra.Enabled = false;
                 BtnIngresar.Enabled = false;
                 MessageBox.Show("No hay usuarios registrados en el sistema.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
+                txtUsuario.Enabled = true;
+                txtContra.Enabled = true;
                 BtnIngresar.Enabled = true;
             }
         }
 
         private void BtnRegistrarse_Click(object sender, EventArgs e)
         {
-            new FrmRegistroLogin().Show();
+            var registroForm = new FrmRegistroLogin();
+            registroForm.RegistroCompletado += (s, args) => VerificarUsuarios(); // Suscribirse al evento RegistroCompletado
+            registroForm.Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (new CapaLogica.ClaseLogicaDatos().ExistenUsuariosRegistrados())
-            {
-                BtnIngresar.Visible = true;
-            }
+            VerificarUsuarios();
         }
 
         private void BtnIngresar_Click(object sender, EventArgs e)
@@ -54,9 +57,7 @@ namespace CapaPresentacion
             string username = txtUsuario.Text.Trim();
             string password = txtContra.Text.Trim();
 
-            // Verificar si el usuario existe
             bool usuarioExiste = logicaDatos.VerificarUsuario(username);
-            // Verificar si la contraseña es correcta
             bool contrasenaCorrecta = logicaDatos.VerificarContrasena(username, password);
 
             if (!usuarioExiste && !contrasenaCorrecta)
@@ -66,10 +67,14 @@ namespace CapaPresentacion
             else if (!usuarioExiste)
             {
                 MessageBox.Show("Usuario incorrecto.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUsuario.Clear();
+                txtUsuario.Focus();
             }
             else if (!contrasenaCorrecta)
             {
                 MessageBox.Show("Contraseña incorrecta.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtContra.Clear();
+                txtContra.Focus();
             }
             else
             {
@@ -109,7 +114,60 @@ namespace CapaPresentacion
         {
 
         }
+
+        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                string username = txtUsuario.Text.Trim();
+                bool usuarioExiste = logicaDatos.VerificarUsuario(username);
+
+                if (!usuarioExiste)
+                {
+                    MessageBox.Show("Usuario incorrecto.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtUsuario.Clear();
+                    txtUsuario.Focus();
+                }
+                else
+                {
+                    txtContra.Focus();
+                }
+            }
+        }
+
+        private void txtContra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                string username = txtUsuario.Text.Trim();
+                string password = txtContra.Text.Trim();
+
+                bool usuarioExiste = logicaDatos.VerificarUsuario(username);
+                bool contrasenaCorrecta = logicaDatos.VerificarContrasena(username, password);
+
+                if (!usuarioExiste)
+                {
+                    MessageBox.Show("Usuario incorrecto.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtUsuario.Clear();
+                    txtUsuario.Focus();
+                }
+                else if (!contrasenaCorrecta)
+                {
+                    MessageBox.Show("Contraseña incorrecta.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtContra.Clear();
+                    txtContra.Focus();
+                }
+                else
+                {
+                    BtnIngresar.Focus();
+                }
+            }
+        }
     }
+        
+    
 
     
 }

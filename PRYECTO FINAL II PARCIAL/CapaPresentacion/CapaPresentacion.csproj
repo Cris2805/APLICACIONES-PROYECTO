@@ -411,12 +411,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\7.png" />
-    <None Include="Resources\icons8-7-40.png" />
-    <None Include="Resources\otros.jpg" />
-    <None Include="Resources\sillas.jpg" />
-    <None Include="Resources\Templado.jpeg" />
-    <None Include="Resources\reconocido.jpg" />
     <None Include="Resources\Laminado.jpeg" />
+    <None Include="Resources\PuertaTemplada.jpeg" />
+    <None Include="Resources\otros.jpg" />
+    <None Include="Resources\reconocido.jpg" />
+    <None Include="Resources\Templado.jpeg" />
+    <None Include="Resources\sillas.jpg" />
+    <None Include="Resources\icons8-7-40.png" />
     <None Include="Resources\Fecha.png" />
     <None Include="Resources\Correo.png" />
     <None Include="Resources\Ciudad.png" />

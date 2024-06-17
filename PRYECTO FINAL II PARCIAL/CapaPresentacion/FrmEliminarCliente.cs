@@ -63,5 +63,10 @@ namespace CapaPresentacion
         {
 
         }
+
+        private void BtnAceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

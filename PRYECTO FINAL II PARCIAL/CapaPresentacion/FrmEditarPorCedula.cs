@@ -43,10 +43,13 @@ namespace CapaPresentacion
                     Edad = edadIngresada,
                     FechaDeNacimiento = dateTimePicker1.Value,
                     CorreoElectronico = txtcorreo.Text
+
+
                 };
 
                 logicaDatos.ActualizarDatosCliente(txtCedula.Text, clienteActualizado);
                 MessageBox.Show("Datos actualizados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -63,7 +66,7 @@ namespace CapaPresentacion
                 string nombre = txtCedula.Text.Trim();
                 if (string.IsNullOrEmpty(nombre))
                 {
-                    MessageBox.Show("Ingrese un nombre para buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ingrese un número de cédula para buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -78,11 +81,15 @@ namespace CapaPresentacion
                         txtedad.Text = cliente.Edad.ToString();
                         txtcorreo.Text = cliente.CorreoElectronico;
                         dateTimePicker1.Value = cliente.FechaDeNacimiento;
+                        dateTimePicker1.Enabled = false;
+                        txtedad.Enabled = false;
                     }
                     else
                     {
                         MessageBox.Show("No existe un registro con el nombre ingresado.", "No Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         // Opcional: limpiar los campos si el cliente no es encontrado
+                        dateTimePicker1.Enabled = false;
+                        txtedad.Enabled = false;
                     }
                 }
                 catch (Exception ex)
@@ -98,6 +105,11 @@ namespace CapaPresentacion
         }
 
         private void FrmEditarPorCedula_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCedula_TextChanged(object sender, EventArgs e)
         {
 
         }

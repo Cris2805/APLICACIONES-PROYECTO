@@ -316,7 +316,15 @@ namespace CapaDatos
             command.Parameters.AddWithValue("@Estado", trabajo.Estado);
             command.Parameters.AddWithValue("@Costo", trabajo.Costo);
             command.Parameters.AddWithValue("@Descripcion", trabajo.Descripcion);
-            command.Parameters.AddWithValue("@Foto", trabajo.Foto);
+
+            if (trabajo.Foto != null && trabajo.Foto.Length > 0)
+            {
+                command.Parameters.AddWithValue("@Foto", trabajo.Foto);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@Foto", DBNull.Value);
+            }
 
             command.ExecuteNonQuery();
             conexion.cerrar();
