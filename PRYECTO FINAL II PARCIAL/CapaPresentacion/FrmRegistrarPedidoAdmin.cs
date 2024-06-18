@@ -28,35 +28,38 @@ namespace CapaPresentacion
 
         private void ComboxTrabajo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ComboxTrabajo.SelectedIndex == 0)
+            switch (ComboxTrabajo.SelectedIndex)
             {
-                pictureBox1.Image = Properties.Resources.reconocido;
-                lbldescripcion.Text = "Puertas con vidrio de calidad superior, \nconocidas por su durabilidad y diseño atractivo";
-                lblPrecio.Text = "$100"; // Precio de la puerta de vidrio reconocido
-            }
-            else if (ComboxTrabajo.SelectedIndex == 1)
-            {
-                pictureBox1.Image = Properties.Resources.Templado;
-                lbldescripcion.Text = "Puertas elegantes y seguras, equipadas \n con vidrio templado de alta resistencia";
-                lblPrecio.Text = "$300"; 
-            }
-            else if (ComboxTrabajo.SelectedIndex == 2)
-            {
-                pictureBox1.Image = Properties.Resources.Laminado;
-                lbldescripcion.Text = "Puertas robustas con vidrio laminado,\n que ofrecen una combinación de seguridad y estilo";
-                lblPrecio.Text = "$200"; // Precio de la puerta de vidrio reconocido
-            }
-            else if (ComboxTrabajo.SelectedIndex == 3)
-            {
-                pictureBox1.Image = Properties.Resources.sillas;
-                lbldescripcion.Text = "Sillas ergonómicas y confortables, diseñadas \n para ofrecer el máximo confort.";
-                lblPrecio.Text = "$25"; // Precio de la puerta de vidrio reconocido
-            }
-            else if (ComboxTrabajo.SelectedIndex == 4)
-            {
-                pictureBox1.Image = Properties.Resources.otros;
-                lbldescripcion.Text = "Productos que no se encuentran \n en las categorías anteriores,\n como mesas, estantes, etc.";
-                lblPrecio.Text = "$100"; // Precio de la puerta de vidrio reconocido
+                case 0:
+                    pictureBox1.Image = Properties.Resources.reconocido;
+                    lbldescripcion.Text = "Puertas con vidrio de calidad superior, \nconocidas por su durabilidad y diseño atractivo";
+                    lblPrecio.Text = "$100"; // Precio de la puerta de vidrio reconocido
+                    break;
+                case 1:
+                    pictureBox1.Image = Properties.Resources.Templado;
+                    lbldescripcion.Text = "Puertas elegantes y seguras, equipadas \n con vidrio templado de alta resistencia";
+                    lblPrecio.Text = "$300";
+                    break;
+                case 2:
+                    pictureBox1.Image = Properties.Resources.Laminado;
+                    lbldescripcion.Text = "Puertas robustas con vidrio laminado,\n que ofrecen una combinación de seguridad y estilo";
+                    lblPrecio.Text = "$200"; // Precio de la puerta de vidrio reconocido
+                    break;
+                case 3:
+                    pictureBox1.Image = Properties.Resources.sillas;
+                    lbldescripcion.Text = "Sillas ergonómicas y confortables, diseñadas \n para ofrecer el máximo confort.";
+                    lblPrecio.Text = "$25"; // Precio de la puerta de vidrio reconocido
+                    break;
+                case 4:
+                    pictureBox1.Image = Properties.Resources.otros;
+                    lbldescripcion.Text = "Productos que no se encuentran \n en las categorías anteriores,\n como mesas, estantes, etc.";
+                    lblPrecio.Text = "$100"; // Precio de la puerta de vidrio reconocido
+                    break;
+                default:
+                    lbldescripcion.Text = string.Empty;
+                    lblPrecio.Text = string.Empty;
+                    pictureBox1.Image = null;
+                    break;
             }
 
             // Limpiar y actualizar las opciones de cantidad
@@ -65,7 +68,7 @@ namespace CapaPresentacion
             {
                 Comboxcantidad.Items.Add(i.ToString());
             }
-            Comboxcantidad.Text = " "; // Seleccionar por defecto la cantidad 1
+            Comboxcantidad.SelectedIndex = 0; // Seleccionar por defecto la cantidad 1
         }
 
         private void Comboxcantidad_SelectedIndexChanged(object sender, EventArgs e)
