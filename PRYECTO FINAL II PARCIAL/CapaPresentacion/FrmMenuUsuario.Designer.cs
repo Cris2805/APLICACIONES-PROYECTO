@@ -32,13 +32,13 @@
             this.lblusuario = new System.Windows.Forms.Label();
             this.cbReportes = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.Btnsesion = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -67,12 +67,12 @@
             // 
             this.lblusuario.AutoSize = true;
             this.lblusuario.BackColor = System.Drawing.Color.Transparent;
-            this.lblusuario.Font = new System.Drawing.Font("Segoe UI Variable Display", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblusuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblusuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
             this.lblusuario.Location = new System.Drawing.Point(21, 29);
             this.lblusuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblusuario.Name = "lblusuario";
-            this.lblusuario.Size = new System.Drawing.Size(252, 49);
+            this.lblusuario.Size = new System.Drawing.Size(267, 42);
             this.lblusuario.TabIndex = 28;
             this.lblusuario.Text = "BIENVENIDO ";
             this.lblusuario.Click += new System.EventHandler(this.lblusuario_Click);
@@ -84,9 +84,10 @@
             this.cbReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbReportes.FormattingEnabled = true;
             this.cbReportes.Items.AddRange(new object[] {
-            "Todo Usuario",
-            "Trabajos",
-            "Cliente Trabajo Precio"});
+            "Todos los clientes",
+            "Todos los Trabajos",
+            "Ci Cliente - Trabajo",
+            "Solo Trabajos terminados"});
             this.cbReportes.Location = new System.Drawing.Point(60, 227);
             this.cbReportes.Name = "cbReportes";
             this.cbReportes.Size = new System.Drawing.Size(246, 26);
@@ -113,34 +114,17 @@
             this.panel1.Size = new System.Drawing.Size(577, 366);
             this.panel1.TabIndex = 30;
             // 
-            // label1
+            // Btnsesion
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Symbol", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DarkRed;
-            this.label1.Location = new System.Drawing.Point(22, 66);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 45);
-            this.label1.TabIndex = 86;
-            this.label1.Text = "Cliente";
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(60, 191);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(246, 31);
-            this.button2.TabIndex = 89;
-            this.button2.Text = "Buscar Pedido";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Btnsesion.BackgroundImage = global::CapaPresentacion.Properties.Resources.icons8_cerrar_sesión_40;
+            this.Btnsesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Btnsesion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnsesion.Location = new System.Drawing.Point(521, 316);
+            this.Btnsesion.Name = "Btnsesion";
+            this.Btnsesion.Size = new System.Drawing.Size(40, 40);
+            this.Btnsesion.TabIndex = 95;
+            this.Btnsesion.UseVisualStyleBackColor = true;
+            this.Btnsesion.Click += new System.EventHandler(this.Btnsesion_Click);
             // 
             // label2
             // 
@@ -154,18 +138,6 @@
             this.label2.Size = new System.Drawing.Size(125, 25);
             this.label2.TabIndex = 94;
             this.label2.Text = "Cerrar Sesión";
-            // 
-            // Btnsesion
-            // 
-            this.Btnsesion.BackgroundImage = global::CapaPresentacion.Properties.Resources.icons8_cerrar_sesión_40;
-            this.Btnsesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Btnsesion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Btnsesion.Location = new System.Drawing.Point(521, 316);
-            this.Btnsesion.Name = "Btnsesion";
-            this.Btnsesion.Size = new System.Drawing.Size(40, 40);
-            this.Btnsesion.TabIndex = 95;
-            this.Btnsesion.UseVisualStyleBackColor = true;
-            this.Btnsesion.Click += new System.EventHandler(this.Btnsesion_Click);
             // 
             // pictureBox4
             // 
@@ -196,6 +168,35 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 91;
             this.pictureBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Symbol", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkRed;
+            this.label1.Location = new System.Drawing.Point(22, 66);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(119, 45);
+            this.label1.TabIndex = 86;
+            this.label1.Text = "Cliente";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(143)))), ((int)(((byte)(201)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(60, 191);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(246, 31);
+            this.button2.TabIndex = 89;
+            this.button2.Text = "Buscar Pedido";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // pictureBox1
             // 

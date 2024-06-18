@@ -26,8 +26,8 @@ namespace CapaPresentacion
                     objrep1.ShowDialog();
                     break;
                 case 1:
-                    /*FrmReporteTrabajos objrep2 = new FrmReporteTrabajos();
-                    objrep2.ShowDialog();*/
+                    FrmReporteTrabajos objrep2 = new FrmReporteTrabajos();
+                    objrep2.ShowDialog();
                     break;
                 case 2:
                     FrmReporteClientePedido objrep3 = new FrmReporteClientePedido();

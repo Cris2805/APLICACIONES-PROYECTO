@@ -156,5 +156,10 @@ namespace CapaPresentacion
                 MessageBox.Show("Error al actualizar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
