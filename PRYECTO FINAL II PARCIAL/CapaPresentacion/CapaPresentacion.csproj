@@ -458,6 +458,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\7.png" />
+    <None Include="Resources\icons8-cerrar-sesión-40.png" />
     <None Include="Resources\Laminado.jpeg" />
     <None Include="Resources\PuertaTemplada.jpeg" />
     <None Include="Resources\otros.jpg" />

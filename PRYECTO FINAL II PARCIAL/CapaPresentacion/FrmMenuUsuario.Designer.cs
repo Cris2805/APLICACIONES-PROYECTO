@@ -34,15 +34,17 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.Btnsesion = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // button8
@@ -95,6 +97,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.Btnsesion);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pictureBox2);
@@ -138,6 +142,41 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.DarkRed;
+            this.label2.Location = new System.Drawing.Point(391, 325);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 25);
+            this.label2.TabIndex = 94;
+            this.label2.Text = "Cerrar Sesión";
+            // 
+            // Btnsesion
+            // 
+            this.Btnsesion.BackgroundImage = global::CapaPresentacion.Properties.Resources.icons8_cerrar_sesión_40;
+            this.Btnsesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Btnsesion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnsesion.Location = new System.Drawing.Point(521, 316);
+            this.Btnsesion.Name = "Btnsesion";
+            this.Btnsesion.Size = new System.Drawing.Size(40, 40);
+            this.Btnsesion.TabIndex = 95;
+            this.Btnsesion.UseVisualStyleBackColor = true;
+            this.Btnsesion.Click += new System.EventHandler(this.Btnsesion_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::CapaPresentacion.Properties.Resources._3;
+            this.pictureBox4.Location = new System.Drawing.Point(19, 222);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(36, 31);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 93;
+            this.pictureBox4.TabStop = false;
+            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::CapaPresentacion.Properties.Resources._2;
@@ -168,16 +207,6 @@
             this.pictureBox1.TabIndex = 87;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::CapaPresentacion.Properties.Resources._3;
-            this.pictureBox4.Location = new System.Drawing.Point(19, 222);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(36, 31);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 93;
-            this.pictureBox4.TabStop = false;
-            // 
             // FrmMenuUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,10 +219,10 @@
             this.Text = "FrmMenuUsuario";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -210,5 +239,7 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Button Btnsesion;
+        private System.Windows.Forms.Label label2;
     }
 }

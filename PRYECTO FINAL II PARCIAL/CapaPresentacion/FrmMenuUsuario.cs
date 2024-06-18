@@ -62,5 +62,12 @@ namespace CapaPresentacion
             FrmBuscarPedido objbus = new FrmBuscarPedido();
             objbus.ShowDialog();
         }
+
+        private void Btnsesion_Click(object sender, EventArgs e)
+        {
+            Form1 objform = new Form1();
+            objform.Show();
+            this.FindForm().Close();
+        }
     }
 }

@@ -88,5 +88,12 @@ namespace CapaPresentacion
             FrmEliminarProducto obj = new FrmEliminarProducto();
             obj.ShowDialog();
         }
+
+        private void Btnsesion_Click(object sender, EventArgs e)
+        {
+            Form1 objform = new Form1();
+            objform.Show();
+            this.FindForm().Close();
+        }
     }
 }
