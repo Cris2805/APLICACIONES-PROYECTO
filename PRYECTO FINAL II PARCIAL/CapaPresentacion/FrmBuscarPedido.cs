@@ -42,6 +42,7 @@ namespace CapaPresentacion
             lblfin.Text = "";
             LblPrecio.Text = "";
             pictureBox1.Image = null;
+            lblTrabajo.Text = "";
         }
         private void txtcedula_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -57,7 +58,12 @@ namespace CapaPresentacion
 
                 try
                 {
-                    int idPedido = int.Parse(txtidtraba.Text.Trim());  // Convertir el texto a entero
+                    if (!int.TryParse(txtidtraba.Text.Trim(), out int idPedido))
+                    {
+                        MessageBox.Show("El ID debe ser un número válido.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     var pedidoDetalle = logicaDatos.BuscarPedidoPorId(idPedido);  // Cambia el método según lo que necesites para buscar por ID de pedido
 
                     if (pedidoDetalle != null)
@@ -73,13 +79,9 @@ namespace CapaPresentacion
                     else
                     {
                         MessageBox.Show("Pedido no encontrado con el ID proporcionado.", "No encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // Limpiar los campos
+                        // Limpiar los campos si no se encuentra el pedido
                         ClearFields();
                     }
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("El ID debe ser un número válido.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {

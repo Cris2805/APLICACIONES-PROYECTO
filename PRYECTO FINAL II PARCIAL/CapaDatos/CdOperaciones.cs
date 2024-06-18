@@ -172,7 +172,23 @@ namespace CapaDatos
             conexion.cerrar();
             return resultado > 0;
         }
+        public string ObtenerCedulaUsuario(string username)
+        {
+            conexion.abrir();
+            string query = "SELECT cedula FROM Usuarios WHERE usuario = @Username"; // Cambia 'nombre_usuario' a 'usuario'
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.Parameters.AddWithValue("@Username", username);
 
+            string cedula = null;
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                cedula = reader["cedula"].ToString();
+            }
+            reader.Close();
+            conexion.cerrar();
+            return cedula;
+        }
         public Cliente BuscarClientePorCorreo(string correo)
         {
             conexion.abrir();
@@ -513,7 +529,14 @@ namespace CapaDatos
             command.ExecuteNonQuery();
             conexion.cerrar();
         }
-
+        public void ReiniciarContadorPedidos()
+        {
+            conexion.abrir();
+            string query = "DBCC CHECKIDENT ('Pedidos', RESEED, 0)";
+            SqlCommand command = new SqlCommand(query, conexion.conexion);
+            command.ExecuteNonQuery();
+            conexion.cerrar();
+        }
     }
 }
 

@@ -47,6 +47,7 @@
             this.lblCedula = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBoxTrabajos = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -55,6 +56,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.lbldescripcion);
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.label3);
@@ -85,7 +87,7 @@
             this.lbldescripcion.AutoSize = true;
             this.lbldescripcion.Font = new System.Drawing.Font("Segoe UI Symbol", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbldescripcion.ForeColor = System.Drawing.Color.Black;
-            this.lbldescripcion.Location = new System.Drawing.Point(351, 102);
+            this.lbldescripcion.Location = new System.Drawing.Point(402, 100);
             this.lbldescripcion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbldescripcion.Name = "lbldescripcion";
             this.lbldescripcion.Size = new System.Drawing.Size(0, 20);
@@ -257,7 +259,7 @@
             // 
             this.lblCedula.AutoSize = true;
             this.lblCedula.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCedula.Location = new System.Drawing.Point(276, 79);
+            this.lblCedula.Location = new System.Drawing.Point(394, 79);
             this.lblCedula.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCedula.Name = "lblCedula";
             this.lblCedula.Size = new System.Drawing.Size(131, 19);
@@ -278,12 +280,23 @@
             // 
             this.comboBoxTrabajos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxTrabajos.FormattingEnabled = true;
-            this.comboBoxTrabajos.Location = new System.Drawing.Point(280, 100);
+            this.comboBoxTrabajos.Location = new System.Drawing.Point(284, 100);
             this.comboBoxTrabajos.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTrabajos.Name = "comboBoxTrabajos";
             this.comboBoxTrabajos.Size = new System.Drawing.Size(58, 24);
             this.comboBoxTrabajos.TabIndex = 65;
             this.comboBoxTrabajos.SelectedIndexChanged += new System.EventHandler(this.comboBoxTrabajos_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(280, 79);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(89, 19);
+            this.label5.TabIndex = 119;
+            this.label5.Text = "ID trabajo:";
             // 
             // FrmRegistroPedido
             // 
@@ -323,5 +336,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtCedula;
         private System.Windows.Forms.Label lbldescripcion;
+        private System.Windows.Forms.Label label5;
     }
 }

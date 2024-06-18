@@ -81,6 +81,9 @@ namespace CapaPresentacion
                 Usuario usuario = logicaDatos.Login(username, password);
                 if (usuario != null)
                 {
+                    // Asignar la cédula del usuario a la clase Sesion
+                    Sesion.CedulaUsuario = logicaDatos.ObtenerCedulaUsuario(username);
+
                     switch (usuario.Role)
                     {
                         case "admin":

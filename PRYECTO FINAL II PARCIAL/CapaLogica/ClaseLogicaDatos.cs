@@ -150,13 +150,18 @@ namespace CapaLogica
             operaciones.EliminarTrabajoCarpinteria(idProducto);
             ReiniciarContadorSiNoHayTrabajos();
         }
-
         private void ReiniciarContadorSiNoHayTrabajos()
         {
             if (!operaciones.HayTrabajos())
             {
                 operaciones.ReiniciarContadorTrabajosCarpinteria();
+                // Reiniciar contador de Pedidos
+                operaciones.ReiniciarContadorPedidos();
             }
+        }
+        public string ObtenerCedulaUsuario(string username)
+        {
+            return operaciones.ObtenerCedulaUsuario(username);
         }
     }
 }

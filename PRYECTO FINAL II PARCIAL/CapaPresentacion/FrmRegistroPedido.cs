@@ -21,14 +21,17 @@ namespace CapaPresentacion
         public FrmRegistroPedido()
         {
             InitializeComponent();
+            txtCedula.Text = Sesion.CedulaUsuario; // Asignar la cédula del usuario a txtCedula
+            txtCedula.Enabled = false; // Deshabilitar el campo de cédula para que no pueda ser editado
             CargarTrabajos();
         }
+
 
         private void CargarTrabajos()
         {
             trabajosCarpinteria = logicaDatos.ObtenerTrabajosCarpinteria();
             comboBoxTrabajos.DataSource = trabajosCarpinteria;
-            comboBoxTrabajos.DisplayMember = "Descripcion";
+            comboBoxTrabajos.DisplayMember = "Id";
             comboBoxTrabajos.ValueMember = "Id";
 
             if (trabajosCarpinteria.Count == 0)
@@ -79,21 +82,30 @@ namespace CapaPresentacion
 
         private void comboBoxTrabajos_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (comboBoxTrabajos.SelectedItem is TrabajoCarpinteria trabajo)
             {
                 lbldescripcion.Text = trabajo.Descripcion;
 
                 Comboxcantidad.Items.Clear();  // Limpiar las opciones de cantidad
-                if (trabajo.Cantidad > 0)
+                if (trabajo.Cantidad > 1) // Mostrar hasta cantidad - 1
                 {
-                    for (int i = 1; i <= trabajo.Cantidad; i++)
+                    for (int i = 1; i < trabajo.Cantidad; i++) // Evitar la última cantidad
                     {
                         Comboxcantidad.Items.Add(i.ToString());
                     }
-                    Comboxcantidad.SelectedIndex = 0;  // Seleccionar la primera cantidad disponible
-                    Comboxcantidad.Enabled = true;  // Habilitar el combobox si hay stock.
-                    BtnGuardar.Enabled = true;  // Habilitar el botón de guardar si hay stock.
+
+                    if (Comboxcantidad.Items.Count > 0)
+                    {
+                        Comboxcantidad.SelectedIndex = 0;  // Seleccionar la primera cantidad disponible
+                        Comboxcantidad.Enabled = true;  // Habilitar el combobox si hay stock.
+                        BtnGuardar.Enabled = true;  // Habilitar el botón de guardar si hay stock.
+                    }
+                    else
+                    {
+                        Comboxcantidad.Enabled = false;
+                        BtnGuardar.Enabled = false;
+                        MessageBox.Show("No hay cantidades disponibles para este trabajo.", "Stock no disponible", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
@@ -157,6 +169,24 @@ namespace CapaPresentacion
                 // Actualizar la lista de trabajos después de registrar el pedido
                 trabajosCarpinteria = logicaDatos.ObtenerTrabajosCarpinteria();
                 comboBoxTrabajos.DataSource = trabajosCarpinteria;
+                // Si la cantidad del trabajo seleccionado es 1 o menos, eliminarlo de la lista
+                if (nuevaCantidad <= 0)
+                {
+                    trabajosCarpinteria.Remove(trabajoSeleccionado);
+                    comboBoxTrabajos.DataSource = null;
+                    comboBoxTrabajos.DataSource = trabajosCarpinteria;
+                    comboBoxTrabajos.DisplayMember = "Id";
+                    comboBoxTrabajos.ValueMember = "Id";
+
+                    if (trabajosCarpinteria.Count == 0)
+                    {
+                        MessageBox.Show("Productos agotados, te llevaste todo.", "Sin stock", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        comboBoxTrabajos.Enabled = false;
+                    }
+                }
+
+                this.Close();
+                this.Close();
             }
             catch (Exception ex)
             {
