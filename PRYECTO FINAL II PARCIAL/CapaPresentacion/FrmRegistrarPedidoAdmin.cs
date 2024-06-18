@@ -131,11 +131,13 @@ namespace CapaPresentacion
             {
                 logicaDatos.InsertarTrabajoCarpinteria(nuevoTrabajo);
                 MessageBox.Show("Trabajo registrado con éxito administrador.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al registrar el trabajo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)

@@ -19,6 +19,7 @@ namespace CapaPresentacion
         public FrmEditProducto()
         {
             InitializeComponent();
+            DesactivarCampos();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -48,6 +49,25 @@ namespace CapaPresentacion
                 MessageBox.Show("Cantidad no encontrada en las opciones disponibles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void DesactivarCampos()
+        {
+            lblCedula.Enabled = false;
+            BtnGuardar.Enabled = false;
+            Comboxcantidad.Enabled = false;
+            ComboxEstado.Enabled = false;
+            fechainicio.Enabled = false;
+            Fichafin.Enabled = false;
+        }
+
+        private void ActivarCampos()
+        {
+            lblCedula.Enabled = true;
+            BtnGuardar.Enabled = true;
+            Comboxcantidad.Enabled = true;
+            ComboxEstado.Enabled = true;
+            fechainicio.Enabled = true;
+            Fichafin.Enabled = true;
+        }
         private void txtCedula_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -70,20 +90,29 @@ namespace CapaPresentacion
                             SetComboBoxCantidad(trabajo.Cantidad);
 
                             pictureBox1.Image = ConvertByteArrayToImage(trabajo.Foto);
+
+                            // Activa los campos y botones
+                            ActivarCampos();
                         }
                         else
                         {
                             MessageBox.Show("No se encontró el producto con el ID proporcionado.", "No encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Desactiva los campos y botones
+                            DesactivarCampos();
                         }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error al buscar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Desactiva los campos y botones en caso de error
+                        DesactivarCampos();
                     }
                 }
                 else
                 {
                     MessageBox.Show("Por favor, ingrese un ID válido.", "ID Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Desactiva los campos y botones
+                    DesactivarCampos();
                 }
             }
         }
@@ -101,28 +130,26 @@ namespace CapaPresentacion
                 DateTime fechaInicio = fechainicio.Value.Date;
                 DateTime fechaFin = Fichafin.Value.Date;
 
-                // Validar fecha de inicio
                 if (fechaInicio < fechaActual || fechaInicio > fechaActual.AddDays(4))
                 {
                     MessageBox.Show("La fecha de inicio debe ser desde hoy hasta un máximo de 4 días posteriores.", "Fecha de Inicio Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Validar fecha de fin
                 if (fechaFin < fechaInicio.AddDays(6) || fechaFin > fechaInicio.AddDays(15))
                 {
                     MessageBox.Show("La fecha de fin debe ser desde 6 hasta 15 días posteriores desde la fecha de inicio.", "Fecha de Fin Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
                 int idTrabajo = int.Parse(txtIDProducto.Text);
-                string Estado = ComboxEstado.SelectedItem.ToString();
-                DateTime FechaInicio = fechainicio.Value.Date;
-                DateTime FechaFin = Fichafin.Value.Date;
-                int Cantidad = int.Parse(Comboxcantidad.Text);
-                // Llamando al método de actualización en la capa de lógica de datos
-                logicaDatos.ActualizarTrabajo(idTrabajo, FechaInicio, FechaFin, Cantidad,Estado);
+                string estado = ComboxEstado.SelectedItem.ToString();
+                int cantidad = int.Parse(Comboxcantidad.SelectedItem.ToString());
+
+                logicaDatos.ActualizarTrabajo(idTrabajo, fechaInicio, fechaFin, cantidad, estado);
 
                 MessageBox.Show("Producto actualizado correctamente.", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             catch (Exception ex)
             {
