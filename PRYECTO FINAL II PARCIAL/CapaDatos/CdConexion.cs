@@ -10,7 +10,7 @@ namespace CapaDatos
 {
     public class CdConexion
     {
-        public string cadena = "Data Source = LAPTOP-PV854FM6\\SQLEXPRESS; Initial Catalog = Carpinteria; Integrated Security = True";
+        public string cadena = "Data Source = PC_JUANCHO; Initial Catalog = Carpinteria; Integrated Security = True";
         public SqlConnection conexion = new SqlConnection();
         public CdConexion()
         {

@@ -17,6 +17,7 @@ namespace CapaPresentacion
     {
 
         private ClaseLogicaDatos logicaDatos = new ClaseLogicaDatos();
+        private bool usuariosVerificados = false;
         public Form1()
         {
             InitializeComponent();
@@ -25,18 +26,22 @@ namespace CapaPresentacion
 
         private void VerificarUsuarios()
         {
-            if (!logicaDatos.ExistenUsuariosRegistrados())
+            if (!usuariosVerificados)
             {
-                txtUsuario.Enabled = false;
-                txtContra.Enabled = false;
-                BtnIngresar.Enabled = false;
-                MessageBox.Show("No hay usuarios registrados en el sistema.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                txtUsuario.Enabled = true;
-                txtContra.Enabled = true;
-                BtnIngresar.Enabled = true;
+                if (!logicaDatos.ExistenUsuariosRegistrados())
+                {
+                    txtUsuario.Enabled = false;
+                    txtContra.Enabled = false;
+                    BtnIngresar.Enabled = false;
+                    MessageBox.Show("No hay usuarios registrados en el sistema.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    txtUsuario.Enabled = true;
+                    txtContra.Enabled = true;
+                    BtnIngresar.Enabled = true;
+                }
+                usuariosVerificados = true;
             }
         }
 
