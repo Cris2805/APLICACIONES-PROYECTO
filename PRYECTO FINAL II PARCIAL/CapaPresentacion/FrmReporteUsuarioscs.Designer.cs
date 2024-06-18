@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class FrmReporteTrabajos
+    partial class FrmReporteUsuarioscs
     {
         /// <summary>
         /// Required designer variable.
@@ -31,51 +31,51 @@
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.carpinteriaDataSet = new CapaPresentacion.CarpinteriaDataSet();
-            this.trabajosCarpinteriaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.trabajosCarpinteriaTableAdapter = new CapaPresentacion.CarpinteriaDataSetTableAdapters.TrabajosCarpinteriaTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trabajosCarpinteriaBindingSource)).BeginInit();
+            this.carpinteriaDataSet1 = new CapaPresentacion.CarpinteriaDataSet1();
+            this.clientesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.clientesTableAdapter = new CapaPresentacion.CarpinteriaDataSet1TableAdapters.ClientesTableAdapter();
+            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clientesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // reportViewer1
             // 
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
             reportDataSource1.Name = "DataSet1";
-            reportDataSource1.Value = this.trabajosCarpinteriaBindingSource;
+            reportDataSource1.Value = this.clientesBindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "CapaPresentacion.ReporteTrabajo.rdlc";
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "CapaPresentacion.ReporteUsuarios.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
             this.reportViewer1.Size = new System.Drawing.Size(800, 450);
             this.reportViewer1.TabIndex = 0;
             // 
-            // carpinteriaDataSet
+            // carpinteriaDataSet1
             // 
-            this.carpinteriaDataSet.DataSetName = "CarpinteriaDataSet";
-            this.carpinteriaDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.carpinteriaDataSet1.DataSetName = "CarpinteriaDataSet1";
+            this.carpinteriaDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // trabajosCarpinteriaBindingSource
+            // clientesBindingSource
             // 
-            this.trabajosCarpinteriaBindingSource.DataMember = "TrabajosCarpinteria";
-            this.trabajosCarpinteriaBindingSource.DataSource = this.carpinteriaDataSet;
+            this.clientesBindingSource.DataMember = "Clientes";
+            this.clientesBindingSource.DataSource = this.carpinteriaDataSet1;
             // 
-            // trabajosCarpinteriaTableAdapter
+            // clientesTableAdapter
             // 
-            this.trabajosCarpinteriaTableAdapter.ClearBeforeFill = true;
+            this.clientesTableAdapter.ClearBeforeFill = true;
             // 
-            // FrmReporteTrabajos
+            // FrmReporteUsuarioscs
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.reportViewer1);
-            this.Name = "FrmReporteTrabajos";
-            this.Text = "FrmReporteTrabajos";
-            this.Load += new System.EventHandler(this.FrmReporteTrabajos_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trabajosCarpinteriaBindingSource)).EndInit();
+            this.Name = "FrmReporteUsuarioscs";
+            this.Text = "FrmReporteUsuarioscs";
+            this.Load += new System.EventHandler(this.FrmReporteUsuarioscs_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clientesBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -83,8 +83,8 @@
         #endregion
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
-        private CarpinteriaDataSet carpinteriaDataSet;
-        private System.Windows.Forms.BindingSource trabajosCarpinteriaBindingSource;
-        private CarpinteriaDataSetTableAdapters.TrabajosCarpinteriaTableAdapter trabajosCarpinteriaTableAdapter;
+        private CarpinteriaDataSet1 carpinteriaDataSet1;
+        private System.Windows.Forms.BindingSource clientesBindingSource;
+        private CarpinteriaDataSet1TableAdapters.ClientesTableAdapter clientesTableAdapter;
     }
 }

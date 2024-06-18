@@ -33,7 +33,7 @@ namespace CapaPresentacion
                 case 0:
                     pictureBox1.Image = Properties.Resources.reconocido;
                     lbldescripcion.Text = "Puertas con vidrio de calidad superior, \nconocidas por su durabilidad y diseño atractivo";
-                    lblPrecio.Text = "$100"; // Precio de la puerta de vidrio reconocido
+                    lblPrecio.Text = "$100";
                     break;
                 case 1:
                     pictureBox1.Image = Properties.Resources.Templado;
@@ -43,17 +43,17 @@ namespace CapaPresentacion
                 case 2:
                     pictureBox1.Image = Properties.Resources.Laminado;
                     lbldescripcion.Text = "Puertas robustas con vidrio laminado,\n que ofrecen una combinación de seguridad y estilo";
-                    lblPrecio.Text = "$200"; // Precio de la puerta de vidrio reconocido
+                    lblPrecio.Text = "$200";
                     break;
                 case 3:
                     pictureBox1.Image = Properties.Resources.sillas;
                     lbldescripcion.Text = "Sillas ergonómicas y confortables, diseñadas \n para ofrecer el máximo confort.";
-                    lblPrecio.Text = "$25"; // Precio de la puerta de vidrio reconocido
+                    lblPrecio.Text = "$25";
                     break;
                 case 4:
                     pictureBox1.Image = Properties.Resources.otros;
                     lbldescripcion.Text = "Productos que no se encuentran \n en las categorías anteriores,\n como mesas, estantes, etc.";
-                    lblPrecio.Text = "$100"; // Precio de la puerta de vidrio reconocido
+                    lblPrecio.Text = "$100";
                     break;
                 default:
                     lbldescripcion.Text = string.Empty;

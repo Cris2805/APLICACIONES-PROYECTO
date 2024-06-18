@@ -131,6 +131,8 @@ namespace CapaLogica
         {
             return operaciones.ObtenerTrabajosCarpinteria();
         }
+
+        
         public void ActualizarCantidadTrabajo(int idTrabajo, int nuevaCantidad)
         {
             operaciones.ActualizarCantidadTrabajo(idTrabajo, nuevaCantidad);

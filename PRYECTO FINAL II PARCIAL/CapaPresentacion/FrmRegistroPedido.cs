@@ -16,6 +16,7 @@ namespace CapaPresentacion
     public partial class FrmRegistroPedido : Form
     {
         private ClaseLogicaDatos logicaDatos = new ClaseLogicaDatos();
+        private List<TrabajoCarpinteria> trabajosCarpinteria;
 
         public FrmRegistroPedido()
         {
@@ -25,12 +26,12 @@ namespace CapaPresentacion
 
         private void CargarTrabajos()
         {
-            var trabajos = logicaDatos.ObtenerTrabajosCarpinteria();
-            comboBoxTrabajos.DataSource = trabajos;
-            comboBoxTrabajos.DisplayMember = "Id";
+            trabajosCarpinteria = logicaDatos.ObtenerTrabajosCarpinteria();
+            comboBoxTrabajos.DataSource = trabajosCarpinteria;
+            comboBoxTrabajos.DisplayMember = "Descripcion";
             comboBoxTrabajos.ValueMember = "Id";
 
-            if (trabajos.Count == 0)
+            if (trabajosCarpinteria.Count == 0)
             {
                 comboBoxTrabajos.Enabled = false;
                 txtCedula.Enabled = false;
@@ -40,7 +41,7 @@ namespace CapaPresentacion
             else
             {
                 comboBoxTrabajos.Enabled = true;
-                comboBoxTrabajos.SelectedIndex = 0;  // Asegúrate de que esto no causa un error si la lista está vacía
+                comboBoxTrabajos.SelectedIndex = 0;
             }
         }
 
@@ -83,19 +84,21 @@ namespace CapaPresentacion
             {
                 lbldescripcion.Text = trabajo.Descripcion;
 
-                if (trabajo.Cantidad > 1)
+                Comboxcantidad.Items.Clear();  // Limpiar las opciones de cantidad
+                if (trabajo.Cantidad > 0)
                 {
                     for (int i = 1; i <= trabajo.Cantidad; i++)
                     {
-                        Comboxcantidad.Items.Add(i);
+                        Comboxcantidad.Items.Add(i.ToString());
                     }
-                    Comboxcantidad.SelectedIndex = 0;
-                    Comboxcantidad.Enabled = true; // Habilitar el combobox si hay elementos.
+                    Comboxcantidad.SelectedIndex = 0;  // Seleccionar la primera cantidad disponible
+                    Comboxcantidad.Enabled = true;  // Habilitar el combobox si hay stock.
+                    BtnGuardar.Enabled = true;  // Habilitar el botón de guardar si hay stock.
                 }
                 else
                 {
-                    Comboxcantidad.Enabled = false; // Deshabilitar el combobox si no hay elementos.
-                    BtnGuardar.Enabled = false; // Deshabilitar el botón de guardar si no hay stock.
+                    Comboxcantidad.Enabled = false;  // Deshabilitar el combobox si no hay stock.
+                    BtnGuardar.Enabled = false;  // Deshabilitar el botón de guardar si no hay stock.
                     MessageBox.Show("Actualmente no hay stock disponible para este trabajo.", "Stock no disponible", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -115,7 +118,6 @@ namespace CapaPresentacion
         }
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            // Validar si el cliente existe
             if (!logicaDatos.CedulaExiste(txtCedula.Text))
             {
                 MessageBox.Show("No se encontró un cliente con la cédula proporcionada.", "Cliente No Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -127,7 +129,6 @@ namespace CapaPresentacion
 
             try
             {
-                // Obtiene el trabajo seleccionado desde el ComboBox
                 if (!(comboBoxTrabajos.SelectedItem is TrabajoCarpinteria trabajoSeleccionado))
                 {
                     MessageBox.Show("No se ha seleccionado un trabajo válido.", "Error de selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -137,7 +138,6 @@ namespace CapaPresentacion
                 int cantidadSeleccionada = Convert.ToInt32(Comboxcantidad.SelectedItem.ToString());
                 decimal totalCalculado = Convert.ToDecimal(lbltotal.Text.Replace("$", ""));
 
-                // Crea un nuevo pedido
                 Pedido nuevoPedido = new Pedido
                 {
                     IdTrabajo = trabajoSeleccionado.Id,
@@ -147,16 +147,16 @@ namespace CapaPresentacion
                     CedulaCliente = txtCedula.Text
                 };
 
-                // Registra el nuevo pedido en la base de datos
                 logicaDatos.RegistrarPedido(nuevoPedido);
 
-                // Calcula la nueva cantidad disponible
                 int nuevaCantidad = trabajoSeleccionado.Cantidad - cantidadSeleccionada;
-
-                // Actualiza la cantidad en la base de datos
                 logicaDatos.ActualizarCantidadTrabajo(trabajoSeleccionado.Id, nuevaCantidad);
 
                 MessageBox.Show("Pedido registrado correctamente. La cantidad disponible ha sido actualizada.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Actualizar la lista de trabajos después de registrar el pedido
+                trabajosCarpinteria = logicaDatos.ObtenerTrabajosCarpinteria();
+                comboBoxTrabajos.DataSource = trabajosCarpinteria;
             }
             catch (Exception ex)
             {

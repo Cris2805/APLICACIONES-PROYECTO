@@ -29,37 +29,34 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.carpinteriaDataSet = new CapaPresentacion.CarpinteriaDataSet();
             this.trabajosCarpinteriaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.carpinteriaDataSet = new CapaPresentacion.CarpinteriaDataSet();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.trabajosCarpinteriaTableAdapter = new CapaPresentacion.CarpinteriaDataSetTableAdapters.TrabajosCarpinteriaTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trabajosCarpinteriaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet)).BeginInit();
             this.SuspendLayout();
             // 
-            // reportViewer1
+            // trabajosCarpinteriaBindingSource
             // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "DataSet3";
-            reportDataSource1.Value = this.trabajosCarpinteriaBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "CapaPresentacion.ReportePedidoEstado.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(800, 450);
-            this.reportViewer1.TabIndex = 0;
+            this.trabajosCarpinteriaBindingSource.DataMember = "TrabajosCarpinteria";
+            this.trabajosCarpinteriaBindingSource.DataSource = this.carpinteriaDataSet;
             // 
             // carpinteriaDataSet
             // 
             this.carpinteriaDataSet.DataSetName = "CarpinteriaDataSet";
             this.carpinteriaDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // trabajosCarpinteriaBindingSource
+            // reportViewer1
             // 
-            this.trabajosCarpinteriaBindingSource.DataMember = "TrabajosCarpinteria";
-            this.trabajosCarpinteriaBindingSource.DataSource = this.carpinteriaDataSet;
+            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "CapaPresentacion.ReportePedidoEstado.rdlc";
+            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(1067, 554);
+            this.reportViewer1.TabIndex = 0;
             // 
             // trabajosCarpinteriaTableAdapter
             // 
@@ -67,15 +64,16 @@
             // 
             // FrmReportePedidoEstado
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.reportViewer1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmReportePedidoEstado";
             this.Text = "FrmReportePedidoEstado";
             this.Load += new System.EventHandler(this.FrmReportePedidoEstado_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trabajosCarpinteriaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.carpinteriaDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }

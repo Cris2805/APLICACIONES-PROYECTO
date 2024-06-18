@@ -48,13 +48,13 @@ namespace CapaPresentacion
             switch(cbReportes.SelectedIndex)
             {
                 case 0:
-                    FrmReporteClientes objrep1 = new FrmReporteClientes();
+                    FrmReporteUsuarioscs objrep1 = new FrmReporteUsuarioscs();
                     objrep1.ShowDialog();
                     break;
                 case 1:
-                    FrmReporteTrabajos objrep2 = new FrmReporteTrabajos();
+                    /*FrmReporteTrabajos objrep2 = new FrmReporteTrabajos();
                     objrep2.ShowDialog();
-                    break;
+                    break;*/
                 case 2:
                     FrmReporteClientePedido objrep3 = new FrmReporteClientePedido();
                     objrep3.ShowDialog();
